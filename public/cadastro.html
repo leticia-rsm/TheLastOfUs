@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cadastro</title>
+</head>
+
+<body>
+    <h1>Cadastro</h1>
+    <span>Usuário</span>
+    <input type="text" placeholder="Leticia" id="input_usuario">
+    <span>E-mail:</span>
+    <input type="text" placeholder="Ex: email@email.com" id="input_email">
+    <span>Senha:</span>
+    <input type="text" placeholder="********" id="input_senha">
+    <span>Confirme sua senha:</span>
+    <input type="text" placeholder="********" id="input_confirma_senha">
+    <span>Qual seu dispositivo?</span>
+    <select id="select_dispositivo">
+        <option value="#" disabled selected></option>
+        <option value="ps5">Playstation 5</option>
+        <option value="ps4">Playstation 4</option>
+        <option value="ps3">Playstation 3</option>
+        <option value="pc">Notebook/Desktop</option>
+        <option value="outro">Outro</option>
+    </select>
+
+    <button onclick="cadastro()">Entrar</button>
+
+    <span>Já possui uma conta? Faça seu login <a href="">aqui!</a></span>
+
+    <div id="div_mensagem"></div>
+</body>
+
+</html>
+
+<script>
+    function cadastro() {
+        var mensagem = ``;
+
+        var usuario = input_usuario.value;
+        var tamanho_usuario = usuario.length;
+
+        var email = input_email.value;
+        var tamanho_email = email.length;
+
+        var senha = input_senha.value;
+        var tamanho_senha = senha.length;
+
+        var confirma_senha = input_confirma_senha.value;
+        var tamanho_confirma = confirma_senha.length;
+
+        var dispositivo = select_dispositivo.value;
+
+        var termina_com = email.endsWith(".com");
+        var arroba = email.includes('@');
+
+        var email_valido = 0;
+        var senha_valido = 0;
+        var confirma_senha_valido = 0;
+
+        if (usuario != "" || email != "" || senha != "" || confirma_senha != "" || dispositivo != "#") {
+
+            // E-mail
+            if (email_valido) {
+                if (termina_com) {
+                    if (arroba) {
+                        mensagem += `<br>E-mail válido`;
+                    } else {
+                        mensagem += `<br>Senha inválida`;
+                    }
+
+                    email_valido++;
+                } else {
+                    mensagem += `<br>E-mail inválido`;
+                }
+            } else {
+                mensagem += `<br>E-mail inválido`;
+            }
+            } else {
+                email_valido = 0;
+            }
+
+            // Senha
+            if (senha_valido) {
+                if (senha.includes('!') || senha.includes('"') || senha.includes('#') || senha.includes('$') ||
+                    senha.includes('%') || senha.includes('&') || senha.includes("'") || senha.includes('(') || senha.includes(')')
+                    || senha.includes('*') || senha.includes('+') || senha.includes(',') || senha.includes('-') || senha.includes('.')
+                    || senha.includes('/') || senha.includes(':') || senha.includes(';') || senha.includes('<') || senha.includes('<')
+                    || senha.includes('=') || senha.includes('>') || senha.includes('?') || senha.includes('@') || senha.includes('[')
+                    || senha.includes('\\') || senha.includes(']') || senha.includes('^') || senha.includes('_') || senha.includes('`')
+                    || senha.includes('`') || senha.includes('{') || senha.includes('|') || senha.includes('}') || senha.includes('~')) {
+                    mensagem += `<br>Senha válida`;
+                    
+                    senha_valido++;
+            } else {
+                mensagem += `<br>Senha Inválida`;
+
+                senha_valido = 0;
+            }
+
+
+            // Confirma Senha
+            if (confirma_senha_valido) {
+                if (senha == confirma_senha) {
+                    mensagem += `<br>A senhas são iguais`;
+
+                    confirma_senha_valido++;
+                } else {
+                    mensagem += `<br>A senhas são diferentes`;
+                }
+            } else {
+                confirma_senha_valido = 0;
+            }
+
+            div_mensagem.innerHTML = mensagem;
+
+            if (email_valido && senha_valido && confirma_senha_valido) {
+                window.location = 'login.html';
+            } else {
+                mensagem += `Todos os campos precisam ser preenchidos corretamente`;
+            }
+        } else {
+            mensagem = `<br>Preencha todos os campos para prosseguir`;
+        }
+    }
+</script>
