@@ -15,6 +15,7 @@ body {
     --tamanho-header: 80px;
     --tamanho-pagina: 90vh;
     --tamanho-frase: 30vh;
+    --tamanho-footer: 30vh;
 }
 
 h1 {
@@ -228,11 +229,128 @@ hr {
     background-size: cover;
     background-repeat: no-repeat;
     display: flex;
-    justify-content: flex-end;
     align-items: center;
 }
 
-.bannerTrailer .container {
+.trailers .card {
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: transparent;
+    border-left: 2px solid #ffffff;
+}
+
+.trailers span {
+    font-size: 28px;
+}
+
+.yt {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+}
+
+.trailers .container {
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* INFECTADOS */
+
+.bannerInfectados {
+    height: var(--tamanho-pagina);
+}
+
+.bannerInfectados .container {
     height: 95%;
-    border: 2px solid red;
+    width: 70%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.imgInfectados {
+    height: 60%;
+    width: 80%;
+    background-image: url(../assets/img/imgInfectado.webp);
+}
+
+.bannerInfectados .card {
+    height: 30%;
+    width: 80%;
+    text-align: center;
+}
+
+.bannerInfectados span {
+    font-size: 26px;
+    text-align: center;
+}
+
+/* FOOTER */
+
+.imgRodape {
+    height: calc(var(--tamanho-footer) - 20vh);
+    background-image: url(../assets/img/imgSobre.jpg);
+}
+
+.footer {
+    height: var(--tamanho-footer);
+    background-color: #d2cece;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer .container {
+    height: 50%;
+    width: 70%;
+    display: flex;
+    flex-direction: row;
+}
+
+.compre {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.assista {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.email {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.footer span {
+    font-size: 16px;
+}
+
+.direitos .container {
+    height: 60%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.direitos span {
+    text-align: center;
+}
+
+.footer span {
+    color: #0A0F0B;
+}
+
+.footer h2 {
+    color: #0A0F0B;
 }
