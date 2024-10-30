@@ -2,6 +2,7 @@
 * {
     scroll-behavior: smooth;
     color: #ffffff;
+    scroll-padding-top: 12%;
 }
 
 body {
@@ -13,6 +14,7 @@ body {
 :root {
     --tamanho-header: 80px;
     --tamanho-pagina: 90vh;
+    --tamanho-frase: 30vh;
 }
 
 /* Navbar */
@@ -72,9 +74,20 @@ button {
     cursor: pointer;
 }
 
+button:hover {
+    transition: 0.5s;
+    background-color: #ffffff;
+    color: #0A0F0B;
+}
+
 #botaoLogin {
     background-color: transparent;
     border: 1px solid #ffffff;
+}
+
+#botaoLogin:hover {
+    color: #2ca6de;
+    border: 1px solid #2ca6de;
 }
 
 /* PÁGINA INICIAL */
@@ -87,10 +100,11 @@ button {
 
 /* SOBRE O JOGO */
 .cabecalho {
-    height: calc(var(--tamanho-header) + 30px);
+    height: calc(var(--tamanho-header) + 50px);
     width: 100%;
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 .bannerSobre {
@@ -118,4 +132,76 @@ button {
     align-items: center;
     text-align: justify;
     font-size: 26px;
+}
+
+.secao_frase {
+    height: var(--tamanho-frase);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    background-color: #ffffff;
+}
+
+.secao_frase span, .secao_frase b {
+    color: #0A0F0B;
+}
+
+.bannerGameplay {
+    height: calc(var(--tamanho-pagina) * 2);
+}
+
+.bannerGameplay .container {
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.part1 {
+    height: 31%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.part2 {
+    height: 31%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.part3 {
+    height: 31%;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto {
+    width: 60%;
+    text-align: end;
+    padding: 20px;
+}
+
+.part2 .texto {
+    text-align: start;
+}
+
+.texto span {
+    font-size: 26px;
+    line-height: 50px;
+}
+
+.imagem {
+    height: 100%;
+}
+
+.imagem img {
+    height: 500px;
 }

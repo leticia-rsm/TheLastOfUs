@@ -37,6 +37,73 @@
 </html>
 
 <script>
+    function lixo() {
+        if (usuario != "" || email != "" || senha != "" || confirma_senha != "" || dispositivo != "#") {
+
+            // E-mail
+            if (email_valido) {
+                if (termina_com) {
+                    if (arroba) {
+                        mensagem += `<br>E-mail válido`;
+                    } else {
+                        mensagem += `<br>Senha inválida`;
+                    }
+
+                    email_valido++;
+                } else {
+                    mensagem += `<br>E-mail inválido`;
+                }
+            } else {
+                mensagem += `<br>E-mail inválido`;
+            }
+        } else {
+            email_valido = 0;
+        }
+
+        // Senha
+        if (senha_valido) {
+            if (senha.includes('!') || senha.includes('"') || senha.includes('#') || senha.includes('$') ||
+                senha.includes('%') || senha.includes('&') || senha.includes("'") || senha.includes('(') || senha.includes(')')
+                || senha.includes('*') || senha.includes('+') || senha.includes(',') || senha.includes('-') || senha.includes('.')
+                || senha.includes('/') || senha.includes(':') || senha.includes(';') || senha.includes('<') || senha.includes('<')
+                || senha.includes('=') || senha.includes('>') || senha.includes('?') || senha.includes('@') || senha.includes('[')
+                || senha.includes('\\') || senha.includes(']') || senha.includes('^') || senha.includes('_') || senha.includes('`')
+                || senha.includes('`') || senha.includes('{') || senha.includes('|') || senha.includes('}') || senha.includes('~')) {
+                mensagem += `<br>Senha válida`;
+
+                senha_valido++;
+            } else {
+                mensagem += `<br>Senha Inválida`;
+
+                senha_valido = 0;
+            }
+
+
+            // Confirma Senha
+            if (confirma_senha_valido) {
+                if (senha == confirma_senha) {
+                    mensagem += `<br>A senhas são iguais`;
+
+                    confirma_senha_valido++;
+                } else {
+                    mensagem += `<br>A senhas são diferentes`;
+                }
+            } else {
+                confirma_senha_valido = 0;
+            }
+
+            div_mensagem.innerHTML = mensagem;
+
+            if (email_valido == 1 && senha_valido == 1 && confirma_senha_valido == 1) {
+                window.location = 'login.html';
+            } else {
+                mensagem += `Todos os campos precisam ser preenchidos corretamente`;
+            }
+        } else {
+            mensagem = `<br>Preencha todos os campos para prosseguir`;
+        }
+    }
+
     function cadastro() {
         var mensagem = ``;
 
@@ -61,69 +128,19 @@
         var senha_valido = 0;
         var confirma_senha_valido = 0;
 
-        if (usuario != "" || email != "" || senha != "" || confirma_senha != "" || dispositivo != "#") {
+        var temErro = false;
 
-            // E-mail
-            if (email_valido) {
-                if (termina_com) {
-                    if (arroba) {
-                        mensagem += `<br>E-mail válido`;
-                    } else {
-                        mensagem += `<br>Senha inválida`;
-                    }
-
-                    email_valido++;
-                } else {
-                    mensagem += `<br>E-mail inválido`;
-                }
-            } else {
-                mensagem += `<br>E-mail inválido`;
-            }
-            } else {
-                email_valido = 0;
-            }
-
-            // Senha
-            if (senha_valido) {
-                if (senha.includes('!') || senha.includes('"') || senha.includes('#') || senha.includes('$') ||
-                    senha.includes('%') || senha.includes('&') || senha.includes("'") || senha.includes('(') || senha.includes(')')
-                    || senha.includes('*') || senha.includes('+') || senha.includes(',') || senha.includes('-') || senha.includes('.')
-                    || senha.includes('/') || senha.includes(':') || senha.includes(';') || senha.includes('<') || senha.includes('<')
-                    || senha.includes('=') || senha.includes('>') || senha.includes('?') || senha.includes('@') || senha.includes('[')
-                    || senha.includes('\\') || senha.includes(']') || senha.includes('^') || senha.includes('_') || senha.includes('`')
-                    || senha.includes('`') || senha.includes('{') || senha.includes('|') || senha.includes('}') || senha.includes('~')) {
-                    mensagem += `<br>Senha válida`;
-                    
-                    senha_valido++;
-            } else {
-                mensagem += `<br>Senha Inválida`;
-
-                senha_valido = 0;
-            }
-
-
-            // Confirma Senha
-            if (confirma_senha_valido) {
-                if (senha == confirma_senha) {
-                    mensagem += `<br>A senhas são iguais`;
-
-                    confirma_senha_valido++;
-                } else {
-                    mensagem += `<br>A senhas são diferentes`;
-                }
-            } else {
-                confirma_senha_valido = 0;
-            }
-
-            div_mensagem.innerHTML = mensagem;
-
-            if (email_valido && senha_valido && confirma_senha_valido) {
-                window.location = 'login.html';
-            } else {
-                mensagem += `Todos os campos precisam ser preenchidos corretamente`;
-            }
-        } else {
-            mensagem = `<br>Preencha todos os campos para prosseguir`;
+        if (tamanho_usuario <= 3) {
+            alert("Menor que 3")
+        } else if (tamanho_email <= 6 || termina_com == false || arroba == false) {
+            alert("Email inválido")
+        } else if (senha == "") {
+            alert("Senha incorreta")
+        } else if (senha != confirma_senha) {
+            alert("Senhas diferentes")
+        } else if (dispositivo == "#"){
+            alert("Insira um dispositivo")
         }
+
     }
 </script>

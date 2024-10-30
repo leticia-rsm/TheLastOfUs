@@ -20,3 +20,26 @@
 </body>
 
 </html>
+
+<script>
+    function login() {
+        var senha = input_senha.value;
+        var tamanho_senha = senha.length;
+
+        if (usuario != "" || senha != "") {
+            if(senha.includes('!') || senha.includes('"') || senha.includes('#') || senha.includes('$') ||
+                senha.includes('%') || senha.includes('&') || senha.includes("'") || senha.includes('(') || senha.includes(')')
+                || senha.includes('*') || senha.includes('+') || senha.includes(',') || senha.includes('-') || senha.includes('.')
+                || senha.includes('/') || senha.includes(':') || senha.includes(';') || senha.includes('<') || senha.includes('<')
+                || senha.includes('=') || senha.includes('>') || senha.includes('?') || senha.includes('@') || senha.includes('[')
+                || senha.includes('\\') || senha.includes(']') || senha.includes('^') || senha.includes('_') || senha.includes('`')
+                || senha.includes('`') || senha.includes('{') || senha.includes('|') || senha.includes('}') || senha.includes('~')) {
+                mensagem += `<br>Senha válida`;
+            } else {
+                mensagem += `Senha inválida`;
+            }
+        } else {
+            mensagem = `<br>Preencha todos os campos para prosseguir`;
+        }
+    }
+</script>
