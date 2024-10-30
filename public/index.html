@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TLOU | Página Inicial</title>
+
+    <link rel="stylesheet" href="style/index.css">
+</head>
+
+<body>
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href=""><img src="../public/assets/img/logo.webp" alt="" height="50px"></a>
+            </div>
+            <ul class="navItens">
+                <li>
+                    <a href="#sobre">Sobre</a>
+                </li>
+                <li>
+                    <a href="#infectados">Infectados</a>
+                </li>
+                <li>
+                    <a href="#ondeJogar">Onde Jogar</a>
+                </li>
+            </ul>
+            <div class="botoes">
+                <button onclick="login()" id="botaoLogin">Login</button>
+                <button onclick="cadastro()" id="botaoCadastro">Cadastro</button>
+            </div>
+        </div>
+    </div>
+    <div class="bannerInicio"></div>
+    <div class="cabecalho">
+        <h1>SOBRE O JOGO</h1>
+    </div>
+    <div class="bannerSobre">
+        <div class="card">
+            <span>Em The Last of Us Part II, a história se passa cinco anos após os eventos do primeiro jogo. Ellie
+                agora tem 19 anos e vive em Jackson, uma comunidade pacífica no Wyoming, onde tenta reconstruir sua vida
+                ao lado de Joel e de outros sobreviventes. No entanto, um evento trágico abala essa paz, levando Ellie a
+                embarcar em uma jornada de vingança brutal e perigosa, que a leva para Seattle. <br>
+                Ao longo da jornada, o jogador vivencia uma narrativa profunda sobre ódio, perda e redenção. A história
+                é dividida entre o ponto de vista de Ellie e de Abby, uma nova personagem com ligações inesperadas a
+                eventos passados. Essa narrativa dual explora o impacto das ações dos personagens e a complexidade da
+                moralidade, desafiando o jogador a ver os conflitos por diferentes perspectivas. <br>
+                A ambientação pós-apocalíptica está mais detalhada do que nunca, com inimigos humanos e infectados ainda
+                mais ameaçadores. Com gráficos avançados e mecânicas de combate realistas, o jogo traz um clima intenso
+                e emocional, sendo amplamente elogiado por sua narrativa corajosa e sua capacidade de mexer com o
+                jogador, colocando-o frente a frente com escolhas e consequências moralmente complexas.</span>
+        </div>
+    </div>
+</body>
+
+</html>
+
+<script>
+    function login() {
+        window.location = "login.html";
+    }
+
+    function cadastro() {
+        window.location = "cadastro.html";
+    }
+</script>

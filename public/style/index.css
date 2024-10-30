@@ -1,0 +1,121 @@
+/* Definições gerais */
+* {
+    scroll-behavior: smooth;
+    color: #ffffff;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #0A0F0B;
+}
+
+:root {
+    --tamanho-header: 80px;
+    --tamanho-pagina: 90vh;
+}
+
+/* Navbar */
+.header {
+    height: var(--tamanho-header);
+    width: 100%;
+    background-color: #0A0F0B;
+    position: fixed;
+    z-index: 10;
+    padding-top: 20px;
+}
+
+.navItens {
+    width: 50%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    list-style: none;
+
+}
+
+.navItens a {
+    font-size: 22px;
+    text-decoration: none;
+}
+
+.logo {
+    width: 60%;
+    display: flex;
+}
+
+.botoes {
+    width: 25%;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+.container {
+    display: flex;
+    width: 95%;
+    margin: auto;
+}
+
+button {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 120px;
+    font-size: 20px;
+    border: none;
+    border-radius: 2px;
+    background-color: #3D7593;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#botaoLogin {
+    background-color: transparent;
+    border: 1px solid #ffffff;
+}
+
+/* PÁGINA INICIAL */
+.bannerInicio {
+    height: calc(var(--tamanho-pagina) + 10vh);
+    background-image: url(../assets/img/bannerIndex.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+/* SOBRE O JOGO */
+.cabecalho {
+    height: calc(var(--tamanho-header) + 30px);
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.bannerSobre {
+    height: var(--tamanho-pagina);
+    background-image: url(../assets/img/bannerSobre.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.card {
+    height: 80%;
+    width: 50%;
+    background-color: #0A0F0B;
+    opacity: 95%;
+    padding-left: 35px;
+}
+
+.bannerSobre span {
+    height: 100%;
+    width: 85%;
+    display: flex;
+    align-items: center;
+    text-align: justify;
+    font-size: 26px;
+}
