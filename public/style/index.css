@@ -17,6 +17,10 @@ body {
     --tamanho-frase: 30vh;
 }
 
+h1 {
+    font-size: 50px;
+}
+
 /* Navbar */
 .header {
     height: var(--tamanho-header);
@@ -100,7 +104,7 @@ button:hover {
 
 /* SOBRE O JOGO */
 .cabecalho {
-    height: calc(var(--tamanho-header) + 50px);
+    height: calc(var(--tamanho-header) * 2);
     width: 100%;
     display: flex;
     justify-content: center;
@@ -134,6 +138,7 @@ button:hover {
     font-size: 26px;
 }
 
+/* CRIADORES */
 .secao_frase {
     height: var(--tamanho-frase);
     width: 100%;
@@ -148,8 +153,9 @@ button:hover {
     color: #0A0F0B;
 }
 
+/* GAMEPLAY */
 .bannerGameplay {
-    height: calc(var(--tamanho-pagina) * 2);
+    height: calc(var(--tamanho-pagina) * 2.3);
 }
 
 .bannerGameplay .container {
@@ -204,4 +210,29 @@ button:hover {
 
 .imagem img {
     height: 500px;
+    box-shadow: 5px 8px 10px 7px #ffffff06;
+}
+
+hr {
+    width: 80%;
+    align-self: flex-start;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+/* ASSISTA AOS TRAILERS */
+
+.trailers {
+    height: var(--tamanho-pagina);
+    background-image: url(../assets/img/rodapeDash.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.bannerTrailer .container {
+    height: 95%;
+    border: 2px solid red;
 }
