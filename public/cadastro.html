@@ -5,35 +5,46 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cadastro | TLOU</title>
+
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/loginCadastro.css">
+    <link rel="icon" href="../public/assets/img/logo.webp">
 </head>
 
 <body>
-    <h1>Cadastro</h1>
-    <span>Usuário</span>
-    <input type="text" placeholder="Leticia" id="input_usuario">
-    <span>Data de Nascimento:</span>
-    <input type="date" id="input_idade">
-    <span>E-mail:</span>
-    <input type="text" placeholder="Ex: email@email.com" id="input_email">
-    <span>Senha:</span>
-    <input type="password" placeholder="********" id="input_senha">
-    <span>Confirme sua senha:</span>
-    <input type="password" placeholder="********" id="input_confirma_senha">
-    <span>Qual seu dispositivo?</span>
-    <select id="select_dispositivo">
-        <option value="#" disabled selected></option>
-        <option value="ps5">Playstation 5</option>
-        <option value="ps4">Playstation 4</option>
-        <option value="ps3">Playstation 3</option>
-        <option value="pc">Notebook/Desktop</option>
-        <option value="outro">Outro</option>
-    </select>
+    <div class="bannerCadastro">
+        <img src="../public/assets/img/barquinho.webp">
+        <div class="card">
+            <h1>Cadastro</h1>
+            <div class="formulario">
+                <span>Usuário</span>
+                <input type="text" placeholder="Leticia" id="input_usuario">
+                <span>Data de Nascimento:</span>
+                <input type="date" id="input_idade">
+                <span>E-mail:</span>
+                <input type="text" placeholder="Ex: email@email.com" id="input_email">
+                <span>Senha:</span>
+                <input type="password" placeholder="********" id="input_senha">
+                <span>Confirme sua senha:</span>
+                <input type="password" placeholder="********" id="input_confirma_senha">
+                <span>Qual seu dispositivo?</span>
+                <select id="select_dispositivo">
+                    <option value="#" disabled selected></option>
+                    <option value="ps5">Playstation 5</option>
+                    <option value="ps4">Playstation 4</option>
+                    <option value="ps3">Playstation 3</option>
+                    <option value="pc">Notebook/Desktop</option>
+                    <option value="outro">Outro</option>
+                </select>
+            </div>
 
-    <button onclick="cadastro()">Entrar</button>
+            <button onclick="cadastro()">Entrar</button>
 
-    <span>Já possui uma conta? Faça seu login <a href="login.html">aqui!</a></span>
+            <span>Já possui uma conta? Faça seu login <a href="login.html">aqui!</a></span>
 
-    <div id="div_mensagem"></div>
+            <div id="div_mensagem"></div>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -75,7 +86,7 @@
         } else if (senha == "" || caractereEspecial == false || tamanho_senha < 7) {
             mensagem += `<br> Senha deve ter no mínimo 1 caractere especial e no mínimo 8 caracteres <br>
             Caracteres especiais: "!", "@", "#", "$"`;
-        } else if (dispositivo == "#"){
+        } else if (dispositivo == "#") {
             mensagem += `<br> Insira um dispositivo`;
         } else {
             alert("Usuário cadastrado com sucesso! Redirecionando para a pagina de Login...");
