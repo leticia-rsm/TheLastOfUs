@@ -4,42 +4,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login</title>
+    <title>Login | TLOU</title>
 </head>
 
 <body>
     <h1>Login</h1>
     <span>E-mail:</span>
-    <input type="text" placeholder="Ex: email@email.com">
+    <input id="input_email" type="text" placeholder="Ex: email@email.com">
     <span>Senha:</span>
-    <input type="text" placeholder="Ex: Senha@123">
+    <input id="input_senha" type="text" placeholder="Ex: Senha@123">
 
     <button onclick="login()">Entrar</button>
 
-    <span>Não possui uma conta? Cadastre-se <a href="">aqui!</a></span>
+    <span>Não possui uma conta? Cadastre-se <a href="cadastro.html">aqui!</a></span>
+
+    <div class="di_mensagem"></div>
 </body>
 
 </html>
 
 <script>
     function login() {
+        var email = input_email.value;
+        var tamanho_email = email.length
         var senha = input_senha.value;
         var tamanho_senha = senha.length;
 
-        if (usuario != "" || senha != "") {
-            if(senha.includes('!') || senha.includes('"') || senha.includes('#') || senha.includes('$') ||
-                senha.includes('%') || senha.includes('&') || senha.includes("'") || senha.includes('(') || senha.includes(')')
-                || senha.includes('*') || senha.includes('+') || senha.includes(',') || senha.includes('-') || senha.includes('.')
-                || senha.includes('/') || senha.includes(':') || senha.includes(';') || senha.includes('<') || senha.includes('<')
-                || senha.includes('=') || senha.includes('>') || senha.includes('?') || senha.includes('@') || senha.includes('[')
-                || senha.includes('\\') || senha.includes(']') || senha.includes('^') || senha.includes('_') || senha.includes('`')
-                || senha.includes('`') || senha.includes('{') || senha.includes('|') || senha.includes('}') || senha.includes('~')) {
-                mensagem += `<br>Senha válida`;
-            } else {
-                mensagem += `Senha inválida`;
-            }
+        if (email == "" || senha == "" || tamanho_senha < 7) {
+            mensagem += `Senha ou Usuário Inválidos`;
         } else {
-            mensagem = `<br>Preencha todos os campos para prosseguir`;
+            alert("Redirecionando para a Dashboard...");
+            window.location = "dashboard.html";
         }
+
+        div_mensagem.innerHTML = mensagem;
     }
 </script>

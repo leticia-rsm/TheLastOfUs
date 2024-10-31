@@ -4,19 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro</title>
+    <title>Cadastro | TLOU</title>
 </head>
 
 <body>
     <h1>Cadastro</h1>
     <span>Usuário</span>
     <input type="text" placeholder="Leticia" id="input_usuario">
+    <span>Data de Nascimento:</span>
+    <input type="date" id="input_idade">
     <span>E-mail:</span>
     <input type="text" placeholder="Ex: email@email.com" id="input_email">
     <span>Senha:</span>
-    <input type="text" placeholder="********" id="input_senha">
+    <input type="password" placeholder="********" id="input_senha">
     <span>Confirme sua senha:</span>
-    <input type="text" placeholder="********" id="input_confirma_senha">
+    <input type="password" placeholder="********" id="input_confirma_senha">
     <span>Qual seu dispositivo?</span>
     <select id="select_dispositivo">
         <option value="#" disabled selected></option>
@@ -29,7 +31,7 @@
 
     <button onclick="cadastro()">Entrar</button>
 
-    <span>Já possui uma conta? Faça seu login <a href="">aqui!</a></span>
+    <span>Já possui uma conta? Faça seu login <a href="login.html">aqui!</a></span>
 
     <div id="div_mensagem"></div>
 </body>
@@ -37,78 +39,13 @@
 </html>
 
 <script>
-    function lixo() {
-        if (usuario != "" || email != "" || senha != "" || confirma_senha != "" || dispositivo != "#") {
-
-            // E-mail
-            if (email_valido) {
-                if (termina_com) {
-                    if (arroba) {
-                        mensagem += `<br>E-mail válido`;
-                    } else {
-                        mensagem += `<br>Senha inválida`;
-                    }
-
-                    email_valido++;
-                } else {
-                    mensagem += `<br>E-mail inválido`;
-                }
-            } else {
-                mensagem += `<br>E-mail inválido`;
-            }
-        } else {
-            email_valido = 0;
-        }
-
-        // Senha
-        if (senha_valido) {
-            if (senha.includes('!') || senha.includes('"') || senha.includes('#') || senha.includes('$') ||
-                senha.includes('%') || senha.includes('&') || senha.includes("'") || senha.includes('(') || senha.includes(')')
-                || senha.includes('*') || senha.includes('+') || senha.includes(',') || senha.includes('-') || senha.includes('.')
-                || senha.includes('/') || senha.includes(':') || senha.includes(';') || senha.includes('<') || senha.includes('<')
-                || senha.includes('=') || senha.includes('>') || senha.includes('?') || senha.includes('@') || senha.includes('[')
-                || senha.includes('\\') || senha.includes(']') || senha.includes('^') || senha.includes('_') || senha.includes('`')
-                || senha.includes('`') || senha.includes('{') || senha.includes('|') || senha.includes('}') || senha.includes('~')) {
-                mensagem += `<br>Senha válida`;
-
-                senha_valido++;
-            } else {
-                mensagem += `<br>Senha Inválida`;
-
-                senha_valido = 0;
-            }
-
-
-            // Confirma Senha
-            if (confirma_senha_valido) {
-                if (senha == confirma_senha) {
-                    mensagem += `<br>A senhas são iguais`;
-
-                    confirma_senha_valido++;
-                } else {
-                    mensagem += `<br>A senhas são diferentes`;
-                }
-            } else {
-                confirma_senha_valido = 0;
-            }
-
-            div_mensagem.innerHTML = mensagem;
-
-            if (email_valido == 1 && senha_valido == 1 && confirma_senha_valido == 1) {
-                window.location = 'login.html';
-            } else {
-                mensagem += `Todos os campos precisam ser preenchidos corretamente`;
-            }
-        } else {
-            mensagem = `<br>Preencha todos os campos para prosseguir`;
-        }
-    }
-
     function cadastro() {
         var mensagem = ``;
 
         var usuario = input_usuario.value;
         var tamanho_usuario = usuario.length;
+
+        var idade = input_idade.value;
 
         var email = input_email.value;
         var tamanho_email = email.length;
@@ -123,24 +60,28 @@
 
         var termina_com = email.endsWith(".com");
         var arroba = email.includes('@');
-
-        var email_valido = 0;
-        var senha_valido = 0;
-        var confirma_senha_valido = 0;
+        var caractereEspecial = senha.includes('!') || senha.includes('@') || senha.includes('#') || senha.includes('$');
 
         var temErro = false;
 
-        if (tamanho_usuario <= 3) {
-            alert("Menor que 3")
+        if (tamanho_usuario <= 1) {
+            mensagem += `<br> Usuário deve ter no mínimo 2 caracteres`;
+        } else if (idade == "") {
+            mensagem += `Data inválida`;
         } else if (tamanho_email <= 6 || termina_com == false || arroba == false) {
-            alert("Email inválido")
-        } else if (senha == "") {
-            alert("Senha incorreta")
+            mensagem += `<br> Email inválido`;
         } else if (senha != confirma_senha) {
-            alert("Senhas diferentes")
+            mensagem += `<br> As senhas estão diferentes`;
+        } else if (senha == "" || caractereEspecial == false || tamanho_senha < 7) {
+            mensagem += `<br> Senha deve ter no mínimo 1 caractere especial e no mínimo 8 caracteres <br>
+            Caracteres especiais: "!", "@", "#", "$"`;
         } else if (dispositivo == "#"){
-            alert("Insira um dispositivo")
+            mensagem += `<br> Insira um dispositivo`;
+        } else {
+            alert("Usuário cadastrado com sucesso! Redirecionando para a pagina de Login...");
+            window.location = "login.html";
         }
 
+        div_mensagem.innerHTML = mensagem;
     }
 </script>
