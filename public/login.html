@@ -37,7 +37,7 @@
                     </div>
                 
                 </div>
-                <div class="entrar">
+                <div class="entrarLogin">
                     <button onclick="cadastro()">Entrar</button>
                     <span>Não possui uma conta? Faça seu cadastro <a href="cadastro.html" style="color: rgb(0, 242, 255)">aqui!</a></span>
                 </div>
@@ -57,7 +57,7 @@
         var senha = input_senha.value;
         var tamanho_senha = senha.length;
 
-        if (email == "" || senha == "" || tamanho_senha < 7) {
+        if (email == "" || (senha == "" && tamanho_senha < 7)) {
             mensagem += `Senha ou Usuário Inválidos`;
         } else {
             alert("Redirecionando para a Dashboard...");
