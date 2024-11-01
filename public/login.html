@@ -12,17 +12,40 @@
 </head>
 
 <body>
-    <h1>Login</h1>
-    <span>E-mail:</span>
-    <input id="input_email" type="text" placeholder="Ex: email@email.com">
-    <span>Senha:</span>
-    <input id="input_senha" type="text" placeholder="Ex: Senha@123">
-
-    <button onclick="login()">Entrar</button>
-
-    <span>Não possui uma conta? Cadastre-se <a href="cadastro.html">aqui!</a></span>
-
-    <div class="di_mensagem"></div>
+    <div class="bannerCadastroLogin">
+        <img src="">
+        <div class="navCadastroLogin">
+            <div class="logo">
+                <a href="index.html"><img src="../public/assets/img/logo.webp" alt="" height="50px"></a>
+            </div>
+        </div>
+        <div class="tamanho_login">
+            <div class="card_login">
+                <div class="alinhamento_titulo">
+                    <div class="titulo">
+                        <h1>Login</h1>
+                    </div>
+                </div>
+                <div class="formulario_login">
+                    <div class="campo"> 
+                        <span>E-mail:</span>
+                        <input type="text" placeholder="Ex: email@email.com" id="input_email">
+                    </div>
+                    <div class="campo">
+                        <span>Senha:</span>
+                        <input type="password" placeholder="********" id="input_senha" style="color: black">
+                    </div>
+                
+                </div>
+                <div class="entrar">
+                    <button onclick="cadastro()">Entrar</button>
+                    <span>Não possui uma conta? Faça seu cadastro <a href="cadastro.html" style="color: rgb(0, 242, 255)">aqui!</a></span>
+                </div>
+                    
+                    <div id="div_mensagem"></div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>
@@ -30,7 +53,7 @@
 <script>
     function login() {
         var email = input_email.value;
-        var tamanho_email = email.length
+        var tamanho_email = email.length;
         var senha = input_senha.value;
         var tamanho_senha = senha.length;
 

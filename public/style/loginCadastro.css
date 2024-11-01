@@ -1,0 +1,126 @@
+/* CADASTRO */
+.bannerCadastroLogin {
+    height: calc(var(--tamanho-pagina) + 10vh);
+    background-image: url(../assets/img/barquinho.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+}
+
+.navCadastroLogin {
+    width: 100%;
+    background-color: transparent;
+}
+
+.navCadastroLogin .logo {
+    width: 97%;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.tamanho_cadastro {
+    height: 90%;
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.card_cadastro {
+    height: 90%;
+    width: 90%;
+    border-radius: 4px;
+    background-color: #0a0f0b;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.alinhamento_titulo {
+    width: 90%;
+    height: 15%;
+}
+
+.alinhamento_titulo .titulo {
+    display: flex;
+    align-items: center;
+}
+
+.formulario_cadastro {
+    height: 60%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.campo_row {
+    width: 100%;
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.campo {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo_usuario {
+    width: 60%;
+    display: flex;
+    flex-direction: column;
+}
+
+.campo_dt {
+    width: 35%;
+    margin-left: 5%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.bannerCadastroLogin input, .bannerCadastroLogin select{
+    height: 30px;
+    border-radius: 4px;
+}
+
+.campo option {
+    color: black;
+}
+
+.entrar {
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+}
+
+/* LOGIN */
+
+.tamanho_login {
+    height: 90%;
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.card_login {
+    height: 60%;
+    width: 70%;
+    border-radius: 4px;
+    background-color: #0a0d0f;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.formulario_login {
+    height: 60%;
+    width: 90%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+}
