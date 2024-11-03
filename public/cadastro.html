@@ -16,7 +16,7 @@
         <img src="">
         <div class="navCadastroLogin">
             <div class="logo">
-                <a href="index.html"><img src="../public/assets/img/logo.webp" alt="" height="50px"></a>
+                <a href="index.html"><img src="./assets/img/logo.webp" alt="" height="50px"></a>
             </div>
         </div>
         <div class="tamanho_cadastro">
@@ -29,25 +29,25 @@
                 <div class="formulario_cadastro">
                     <div class="campo_row">
                         <div class="campo_usuario">
-                        <span>Usuário</span>
-                            <input type="text" placeholder="Leticia" id="input_usuario">
+                            <span>Usuário</span>
+                            <input type="text" placeholder="Leticia" id="input_usuario" style="color: black">
                         </div>
                         <div class="campo_dt">
-                        <span>Data de Nascimento:</span>
+                            <span>Data de Nascimento:</span>
                             <input type="date" id="input_idade" style="color: black">
                         </div>
                     </div>
-                    <div class="campo"> 
+                    <div class="campo">
                         <span>E-mail:</span>
-                        <input type="text" placeholder="Ex: email@email.com" id="input_email">
+                        <input type="text" placeholder="Ex: email@email.com" id="input_email" style="color: black">
                     </div>
                     <div class="campo">
                         <span>Senha:</span>
-                        <input type="password" placeholder="********" id="input_senha">
+                        <input type="password" placeholder="********" id="input_senha" style="color: black">
                     </div>
                     <div class="campo">
                         <span>Confirme sua senha:</span>
-                        <input type="password" placeholder="********" id="input_confirma_senha">
+                        <input type="password" placeholder="********" id="input_confirma_senha" style="color: black">
                     </div>
                     <div class="campo">
                         <span>Qual seu dispositivo?</span>
@@ -63,10 +63,11 @@
                 </div>
                 <div class="entrarCadastro">
                     <button onclick="cadastro()">Registrar</button>
-                    <span>Já possui uma conta? Faça seu login <a href="login.html" style="color: rgb(0, 242, 255)">aqui!</a></span>
+                    <span>Já possui uma conta? Faça seu login <a href="login.html"
+                            style="color: rgb(0, 242, 255)">aqui!</a></span>
                 </div>
-                    
-                    <div id="div_mensagem"></div>
+
+                <div id="div_mensagem"></div>
             </div>
         </div>
     </div>
@@ -114,8 +115,43 @@
         } else if (dispositivo == "#") {
             mensagem += `<br> Insira um dispositivo`;
         } else {
-            alert("Usuário cadastrado com sucesso! Redirecionando para a pagina de Login...");
+
+            // Enviando o valor da nova input
+            fetch("/usuarios/cadastrar", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    nomeServer: usuario,
+                    idadeServer: idade,
+                    emailServer: email,
+                    senhaServer: senha,
+                    dispositivoServer: dispositivo,
+                }),
+            })
+                .then(function (resposta) {
+                    console.log("resposta: ", resposta);
+
+                    if (resposta.ok) {
+                        cardErro.style.display = "block";
+
+
+                    } else {
+                        alert("Houve um erro ao tentar realizar o cadastro!");
+                    }
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO: ${resposta}`);
+                });
+
+            alert("Cadastro realizado com sucesso! Redirecionando para o Login...");
+
             window.location = "login.html";
+
+            return false;
         }
 
         div_mensagem.innerHTML = mensagem;
