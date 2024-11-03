@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,7 +10,10 @@
     <link rel="stylesheet" href="style/dashboard.css">
     <link rel="stylesheet" href="style/minigame.css">
     <link rel="icon" href="./assets/img/logo.webp">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tone/14.8.37/Tone.min.js"></script>
 </head>
+
 <body>
     <div class="header">
         <div class="container">
@@ -35,6 +39,39 @@
             </div>
         </div>
     </div>
-    <div class="bannerMinigame"></div>
+    <div class="bannerMinigame">
+        
+    </div>
 </body>
+
 </html>
+
+<script>
+    const guitarra = new Tone.Sampler({
+        urls: {
+            "E2": "E2.mp3",  // Mi grave - 6 corda
+            "A2": "A2.mp3",  // Lá - 5 corda
+            "D3": "D3.mp3",  // Ré - 4 corda
+            "G3": "G3.mp3",  // Sol - 3 corda
+            "B3": "B3.mp3",  // Si - 2 corda
+            "E4": "E4.mp3"   // Mi agudo - 1 corda
+        },
+        baseUrl: "https://example.com/path/to/samples/" 
+    }).toDestination();
+
+    const teclaNota = {
+        'a': 'E2',
+        's': 'A2',
+        'd': 'D3',
+        'f': 'G3',
+        'g': 'B3',
+        'h': 'E4'
+    };
+
+    document.addEventListener('keydown', (event) => {
+        const tecla = event.key.toLowerCase();
+        if (teclaNota[tecla]) {
+            guitarra.triggerAttackRelease(teclaNota[tecla], "1n");
+        }
+    });
+</script>

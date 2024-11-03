@@ -1,6 +1,6 @@
 .bannerMinigame {
     height: calc(var(--tamanho-pagina) + 10vh);
-    background-image: url(../assets/img/Ellie_tocando_violao.png);
+    background-image: url(../assets/img/bannerMinigame.webp);
     background-size: cover;
     background-repeat: no-repeat;
 }
