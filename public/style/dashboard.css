@@ -94,34 +94,39 @@
     font-size: 20px;
     font-weight: bold;
     opacity: 0;
+    font-size: 30px;
 }
 
 .ellieFinal {
-    left: 20%;
+    left: 30%;
 }
 
 .abbyFinal {
-    right: 20%;
+    right: 30%;
 }
 
 #img1:hover + .ellieFinal {
-    left: calc(20% + 10%);
+    left: calc(30% + 10%);
     opacity: 1;
 }
 
 #img2:hover + .abbyFinal {
-    right: calc(20% + 10%);
+    right: calc(30% + 10%);
     opacity: 1;
 }
 
 /* GRAFICOS E KPI'S */
 .dash {
-    height: var(--tamanho-pagina);
+    height: calc(var(--tamanho-pagina) * 2);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .kpi {
-    height: 40%;
-    width: 100%;
+    height: 10%;
+    width: 70%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -134,10 +139,32 @@
 
 
 .grafico {
-    height: 60%;
+    height: 90%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid #ffffff;
+}
+
+.publico {
+    height: 15%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.graficoAlinhado {
+    height: 40%;
+    width: 80%;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+}
+
+/* FOOTER */
+.imgRodape {
+    height: calc(var(--tamanho-footer) - 20vh);
+    background-image: url(../assets/img/rodapeDash.jpg);
 }
