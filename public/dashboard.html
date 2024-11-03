@@ -1,11 +1,75 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Dashboard | TLOU</title>
+
+    <link rel="stylesheet" href="style/index.css">
+    <link rel="stylesheet" href="style/dashboard.css">
+    <link rel="icon" href="./assets/img/logo.webp">
 </head>
+
 <body>
-    
+    <div class="header">
+        <div class="container">
+            <div class="logo">
+                <a href="index.html"><img src="./assets/img/logo.webp" alt="" height="50px"></a>
+            </div>
+            <ul class="navItens">
+                <li>
+                    <a href="#section_seuFfinal">Seu Final</a>
+                </li>
+                <li>
+                    <a href="#section_grafico">Gráficos</a>
+                </li>
+                <li>
+                    <a href="#section_minigame">Minigame</a>
+                </li>
+            </ul>
+            <div class="perfil">
+                <div class="nomeUsuario">
+                    <span>Olá, <span id="span_usuario">Usuário</span></span>
+                </div>
+                <div class="iconePerfil"><img src="../public/assets/img/iconePerfil.png"></div>
+            </div>
+        </div>
+    </div>
+    <div class="fraseEllie">
+        <div class="container">
+            <span>“Depois de tudo o que passamos juntos. De tudo o que eu fiz. Não pode ser em vão.”</span>
+            <span>-Ellie</span>
+        </div>
+    </div>
+    <div class="final">
+        <div class="titulo">
+            <h1>Escolha seu Final</h1>
+        </div>
+        <div class="tutorial">
+            <span>E se você pudesse escolher seu final?</span>
+            <span>E se, por acaso, estivesse em suas mãos a escolha de matar a Abby e se vingar pelo Joel...</span>
+            <span>Ou poupar sua vida e quebrar o ciclo de vingança.</span>
+            <span>Qual seria sua escolha?</span>
+        </div>
+        <div class="imagens">
+            <section>
+                <img id="img1" src="../public/assets/img/ellieFinal.jpg" onclick="">
+                <p class="ellieFinal">Salvar a Abby</p>     
+                
+                <img id="img2" src="../public/assets/img/abbyFinal.png" onclick="">
+                <p class="abbyFinal">Matar a Abby</p>    
+            </section>
+        </div>
+    </div>
+    <div class="dash">
+        <div class="kpi">
+            <span>Total de Votos: 100</span>
+        </div>
+        <div class="grafico">
+            <span>Gráfico</span>
+        </div>
+    </div>
 </body>
+
 </html>

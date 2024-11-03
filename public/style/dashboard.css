@@ -1,0 +1,143 @@
+/* NAVBAR */
+.perfil {
+    height: 100%;
+    width: 40%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.iconePerfil {
+    display: flex;
+}
+
+.iconePerfil img {
+    height: 60px;
+}
+
+/* FRASE */
+.fraseEllie {
+    height: var(--tamanho-frase);
+    background-color: #ffffff;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.fraseEllie .container {
+    height: calc(var(--tamanho-frase) + var(--tamanho-header));
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.fraseEllie span {
+    color: #0A0F0B;
+    font-size: 26px;
+}
+
+/* ESCOLHA SEU FINAL */
+
+.final {
+    height: calc(var(--tamanho-pagina) + 40vh);
+}
+
+.titulo {
+    height: 15%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.tutorial {
+    height: 30%;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.tutorial span {
+    font-size: 24px;
+}
+
+.final section {
+    position: relative;
+    display: flex;
+    width: 100%;
+    height: 700px;
+}
+
+.final section img {
+    width: 0px;
+    flex-grow: 1;
+    object-fit: cover;
+    opacity: .8;
+    transition: .5s ease;
+}
+
+.final section img:hover {
+    cursor: pointer;
+    width: 300px;
+    opacity: 1;
+    filter: contrast(110%);
+}
+
+.final section p {
+    transition: 1s ease;
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1;
+    color: white;
+    font-size: 20px;
+    font-weight: bold;
+    opacity: 0;
+}
+
+.ellieFinal {
+    left: 20%;
+}
+
+.abbyFinal {
+    right: 20%;
+}
+
+#img1:hover + .ellieFinal {
+    left: calc(20% + 10%);
+    opacity: 1;
+}
+
+#img2:hover + .abbyFinal {
+    right: calc(20% + 10%);
+    opacity: 1;
+}
+
+/* GRAFICOS E KPI'S */
+.dash {
+    height: var(--tamanho-pagina);
+}
+
+.kpi {
+    height: 40%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.kpi span {
+    font-size: 35px;
+    border-bottom: 2px solid #ffffff;
+}
+
+
+.grafico {
+    height: 60%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #ffffff;
+}
