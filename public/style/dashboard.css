@@ -191,7 +191,3 @@
     height: calc(var(--tamanho-footer) - 20vh);
     background-image: url(../assets/img/rodapeDash.jpg);
 }
-
-p {
-    color: rgb(54, 110, 101);
-}

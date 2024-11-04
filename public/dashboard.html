@@ -110,8 +110,7 @@
         span_usuario.innerText = sessionStorage.NOME_USUARIO;
     }
 
-
-
+    // CONTABILIDADE DE VOTOS
     var totalVotos = 0;
     var votoSalvar = 10;
     var votoMatar = 20;
@@ -139,7 +138,7 @@
     function linkPS() {
         clickPS++
 
-        span_ps.innerHTML = clickPS;
+        document.getElementById(span_ps) = `Quantidade de acessos no site oficial da Playstation: ${clickPS}`;
     }
 
     function linkHBO() {
@@ -148,7 +147,7 @@
 
     const dados1 = document.getElementById('myChart1');
 
-    // GRÁFICO
+    // GRÁFICO 1
     new Chart(dados1, {
         type: 'doughnut',
         data: {
@@ -168,7 +167,7 @@
 
     const dados2 = document.getElementById('myChart2');
 
-    // GRÁFICO
+    // GRÁFICO 2
     new Chart(dados2, {
         type: 'bar',
         data: {
@@ -196,7 +195,7 @@
 
     const dados3 = document.getElementById('myChart3');
 
-    // GRÁFICO
+    // GRÁFICO 3
     new Chart(dados3, {
         type: 'bar',
         data: {
