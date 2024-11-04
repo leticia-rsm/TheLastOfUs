@@ -9,6 +9,8 @@
     <link rel="stylesheet" href="style/index.css">
     <link rel="stylesheet" href="style/dashboard.css">
     <link rel="icon" href="./assets/img/logo.webp">
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
 <body>
@@ -55,10 +57,10 @@
             </div>
             <div class="imagens">
                 <section>
-                    <img id="img1" src="./assets/img/ellieFinal.jpg" onclick="">
+                    <img id="img1" src="./assets/img/ellieFinal.jpg" onclick="escolha01()">
                     <p class="ellieFinal">Salvar a Abby</p>
 
-                    <img id="img2" src="./assets/img/abbyFinal.png" onclick="">
+                    <img id="img2" src="./assets/img/abbyFinal.png" onclick="escolha02()">
                     <p class="abbyFinal">Matar a Abby</p>
                 </section>
             </div>
@@ -66,12 +68,14 @@
     </section>
     <section id="section_grafico">
         <div class="dash">
-            <div class="kpi">
-                <span>Total de Votos: 100</span>
-            </div>
-            <div class="graficoAlinhado">
-                <div class="grafico">
-                    <span>Gráfico</span>
+            <div class="interacao">
+                <div class="graficoAlinhado">
+                    <div class="grafico">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+                <div class="kpi">
+                    <span id="span_mensagem">Total de Votos: 0</span>
                 </div>
             </div>
             <div class="publico">
@@ -99,3 +103,60 @@
 </body>
 
 </html>
+
+<script>
+    // WEB-DATAVIZ
+    if (sessionStorage.NOME_USUARIO != undefined) {
+        span_usuario.innerText = sessionStorage.NOME_USUARIO;
+    }
+
+    const ctx = document.getElementById('myChart');
+
+
+    var totalVotos = 0;
+    var votoSalvar = 10;
+    var votoMatar = 20;
+
+    // VOTOS
+    function escolha01() {
+        console.log(votoSalvar)
+        totalVotos++
+        votoSalvar++
+
+        span_mensagem.innerHTML = `Total de Votos: ${totalVotos}`;
+    }
+
+    function escolha02() {
+        totalVotos++
+        votoMatar++
+
+        span_mensagem.innerHTML = `Total de Votos: ${totalVotos}`;
+    }
+
+    // GRÁFICO
+    const data = {
+        datasets: [{
+            label: 'My First Dataset',
+            backgroundColor: [
+                'rgb(23, 74, 151)',
+                'rgb(138, 40, 40)'
+            ],
+            hoverOffset: 4
+        }]
+    };
+    new Chart(ctx, {
+        type: 'doughnut',
+        data: {
+            labels: ['Salvar', 'Matar'],
+            datasets: [{
+                label: '# of Votes',
+                data: [votoSalvar, votoMatar],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            indexAxis: 'y',
+        }
+    }
+    );
+</script>
