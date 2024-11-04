@@ -1,7 +1,6 @@
 /* CADASTRO */
 .bannerCadastroLogin {
     height: calc(var(--tamanho-pagina) + 10vh);
-    background-image: url(../assets/img/barquinho.webp);
     background-size: cover;
     background-repeat: no-repeat;
 }
