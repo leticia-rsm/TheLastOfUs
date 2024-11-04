@@ -71,7 +71,7 @@
             <div class="interacao">
                 <div class="graficoAlinhado">
                     <div class="grafico">
-                        <canvas id="myChart"></canvas>
+                        <canvas id="myChart1"></canvas>
                     </div>
                 </div>
                 <div class="kpi">
@@ -82,19 +82,19 @@
                 <h1>Público</h1>
             </div>
             <div class="kpi">
-                <span>Quantidade de acessos no site oficial da Playstation: 300</span>
+                <span id="span_ps">Quantidade de acessos no site oficial da Playstation: 0</span>
             </div>
             <div class="kpi">
-                <span>Quantidade de acessos no site oficial da HBO: 250</span>
+                <span id="span_hbo">Quantidade de acessos no site oficial da HBO: 0</span>
             </div>
             <div class="graficoAlinhado">
                 <div class="grafico">
-                    <span>Gráfico Idade</span>
+                    <canvas id="myChart2"></canvas>
                 </div>
             </div>
             <div class="graficoAlinhado">
                 <div class="grafico">
-                    <span>Gráfico Dispositivo</span>
+                    <canvas id="myChart3"></canvas>
                 </div>
             </div>
         </div>
@@ -110,7 +110,6 @@
         span_usuario.innerText = sessionStorage.NOME_USUARIO;
     }
 
-    const ctx = document.getElementById('myChart');
 
 
     var totalVotos = 0;
@@ -133,24 +132,85 @@
         span_mensagem.innerHTML = `Total de Votos: ${totalVotos}`;
     }
 
+    // CLICKES
+    var clickPS = 0;
+    var clickHBO = 0;
+
+    function linkPS() {
+        clickPS++
+
+        span_ps.innerHTML = clickPS;
+    }
+
+    function linkHBO() {
+        clickHBO++
+    }
+
+    const dados1 = document.getElementById('myChart1');
+
     // GRÁFICO
-    const data = {
-        datasets: [{
-            label: 'My First Dataset',
-            backgroundColor: [
-                'rgb(23, 74, 151)',
-                'rgb(138, 40, 40)'
-            ],
-            hoverOffset: 4
-        }]
-    };
-    new Chart(ctx, {
+    new Chart(dados1, {
         type: 'doughnut',
         data: {
             labels: ['Salvar', 'Matar'],
             datasets: [{
                 label: '# of Votes',
                 data: [votoSalvar, votoMatar],
+                backgroundColor: [
+                    'rgb(48, 81, 107)',
+                    'rgb(138, 65, 20)'
+                ],
+                borderWidth: 0
+            }]
+        },
+    }
+    );
+
+    const dados2 = document.getElementById('myChart2');
+
+    // GRÁFICO
+    new Chart(dados2, {
+        type: 'bar',
+        data: {
+            labels: ['18 a 21 anos', '22 a 28 anos', '29 a 40 anos', '50+ anos'],
+            datasets: [{
+                label: 'Faixa Etária',
+                data: [25, 70, 40, 14],
+                backgroundColor: [
+                    'rgb(48, 81, 107)',
+                    'rgb(51, 110, 70)',
+                    'rgb(51, 110, 70)',
+                    'rgb(48, 81, 107)'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const dados3 = document.getElementById('myChart3');
+
+    // GRÁFICO
+    new Chart(dados3, {
+        type: 'bar',
+        data: {
+            labels: ['Playstation 5', 'Playstation 4', 'Playstation 3', 'Notebook/Desktop', 'Outro'],
+            datasets: [{
+                label: 'Dispositivos mais utilizados',
+                data: [40, 80, 20, 60, 50],
+                backgroundColor: [
+                    'rgb(51, 110, 70)',
+                    'rgb(48, 81, 107)',
+                    'rgb(109, 36, 42)',
+                    'rgb(161, 150, 26)',
+                    'rgb(54, 110, 101)'
+                ],
                 borderWidth: 0
             }]
         },
