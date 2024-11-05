@@ -14,62 +14,65 @@
 <body>
     <div class="bannerCadastroLogin">
         <video autoplay muted loop>
-            <source src="">
+            <source src="./assets/gif/broken-window-the-last-of-us.1920x1080.mp4">
         </video>
-        <div class="navCadastroLogin">
-            <div class="logo">
-                <a href="index.html"><img src="./assets/img/logo.webp" alt="" height="50px"></a>
+        <div class="content">
+            <div class="navCadastroLogin">
+                <div class="logo">
+                    <a href="index.html"><img src="./assets/img/logo.webp" alt="" height="50px"></a>
+                </div>
             </div>
-        </div>
-        <div class="tamanho_cadastro">
-            <div class="card_cadastro">
-                <div class="alinhamento_titulo">
-                    <div class="titulo">
-                        <h1>Cadastro</h1>
-                    </div>
-                </div>
-                <div class="formulario_cadastro">
-                    <div class="campo_row">
-                        <div class="campo_usuario">
-                            <span>Usuário</span>
-                            <input type="text" placeholder="Leticia" id="input_usuario" style="color: black">
-                        </div>
-                        <div class="campo_dt">
-                            <span>Data de Nascimento:</span>
-                            <input type="date" id="input_idade" style="color: black">
+            <div class="tamanho_cadastro">
+                <div class="card_cadastro">
+                    <div class="alinhamento_titulo">
+                        <div class="titulo">
+                            <h1>Cadastro</h1>
                         </div>
                     </div>
-                    <div class="campo">
-                        <span>E-mail:</span>
-                        <input type="text" placeholder="Ex: email@email.com" id="input_email" style="color: black">
+                    <div class="formulario_cadastro">
+                        <div class="campo_row">
+                            <div class="campo_usuario">
+                                <span>Usuário</span>
+                                <input type="text" placeholder="Leticia" id="input_usuario" style="color: black">
+                            </div>
+                            <div class="campo_dt">
+                                <span>Data de Nascimento:</span>
+                                <input type="date" id="input_idade" style="color: black">
+                            </div>
+                        </div>
+                        <div class="campo">
+                            <span>E-mail:</span>
+                            <input type="text" placeholder="Ex: email@email.com" id="input_email" style="color: black">
+                        </div>
+                        <div class="campo">
+                            <span>Senha:</span>
+                            <input type="password" placeholder="********" id="input_senha" style="color: black">
+                        </div>
+                        <div class="campo">
+                            <span>Confirme sua senha:</span>
+                            <input type="password" placeholder="********" id="input_confirma_senha"
+                                style="color: black">
+                        </div>
+                        <div class="campo">
+                            <span>Qual seu dispositivo?</span>
+                            <select id="select_dispositivo" style="color: black">
+                                <option value="ps5">Playstation 5</option>
+                                <option value="ps4">Playstation 4</option>
+                                <option value="ps3">Playstation 3</option>
+                                <option value="pc">Notebook/Desktop</option>
+                                <option value="outro">Outro</option>
+                                <option value="#" disabled selected>Selecione...</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="campo">
-                        <span>Senha:</span>
-                        <input type="password" placeholder="********" id="input_senha" style="color: black">
+                    <div class="entrarCadastro">
+                        <button onclick="cadastro()">Registrar</button>
+                        <span>Já possui uma conta? Faça seu login <a href="login.html"
+                                style="color: rgb(0, 242, 255)">aqui!</a></span>
                     </div>
-                    <div class="campo">
-                        <span>Confirme sua senha:</span>
-                        <input type="password" placeholder="********" id="input_confirma_senha" style="color: black">
-                    </div>
-                    <div class="campo">
-                        <span>Qual seu dispositivo?</span>
-                        <select id="select_dispositivo" style="color: black">
-                            <option value="ps5">Playstation 5</option>
-                            <option value="ps4">Playstation 4</option>
-                            <option value="ps3">Playstation 3</option>
-                            <option value="pc">Notebook/Desktop</option>
-                            <option value="outro">Outro</option>
-                            <option value="#" disabled selected>Selecione...</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="entrarCadastro">
-                    <button onclick="cadastro()">Registrar</button>
-                    <span>Já possui uma conta? Faça seu login <a href="login.html"
-                            style="color: rgb(0, 242, 255)">aqui!</a></span>
-                </div>
 
-                <div id="div_mensagem"></div>
+                    <div id="div_mensagem"></div>
+                </div>
             </div>
         </div>
     </div>

@@ -13,37 +13,40 @@
 
 <body>
     <div class="bannerCadastroLogin">
-        <img src="">
-        <div class="navCadastroLogin">
-            <div class="logo">
-                <a href="index.html"><img src="./assets/img/logo.webp" alt="" height="50px"></a>
+        <video autoplay muted loop>
+            <source src="./assets/gif/broken-window-the-last-of-us.1920x1080.mp4">
+        </video>
+        <div class="content">
+            <div class="navCadastroLogin">
+                <div class="logo">
+                    <a href="index.html"><img src="./assets/img/logo.webp" alt="" height="50px"></a>
+                </div>
             </div>
-        </div>
-        <div class="tamanho_login">
-            <div class="card_login">
-                <div class="alinhamento_titulo">
-                    <div class="titulo">
-                        <h1>Login</h1>
+            <div class="tamanho_login">
+                <div class="card_login">
+                    <div class="alinhamento_titulo">
+                        <div class="titulo">
+                            <h1>Login</h1>
+                        </div>
                     </div>
-                </div>
-                <div class="formulario_login">
-                    <div class="campo">
-                        <span>E-mail:</span>
-                        <input type="text" placeholder="Ex: email@email.com" id="input_email" style="color: black">
-                    </div>
-                    <div class="campo">
-                        <span>Senha:</span>
-                        <input type="password" placeholder="********" id="input_senha" style="color: black">
-                    </div>
+                    <div class="formulario_login">
+                        <div class="campo">
+                            <span>E-mail:</span>
+                            <input type="text" placeholder="Ex: email@email.com" id="input_email" style="color: black">
+                        </div>
+                        <div class="campo">
+                            <span>Senha:</span>
+                            <input type="password" placeholder="********" id="input_senha" style="color: black">
+                        </div>
 
+                    </div>
+                    <div class="entrarLogin">
+                        <button onclick="login()">Entrar</button>
+                        <span>Não possui uma conta? Faça seu cadastro <a href="cadastro.html"
+                                style="color: rgb(0, 242, 255)">aqui!</a></span>
+                    </div>
+                    <div id="div_mensagem"></div>
                 </div>
-                <div class="entrarLogin">
-                    <button onclick="login()">Entrar</button>
-                    <span>Não possui uma conta? Faça seu cadastro <a href="cadastro.html"
-                            style="color: rgb(0, 242, 255)">aqui!</a></span>
-                </div>
-
-                <div id="div_mensagem"></div>
             </div>
         </div>
     </div>
@@ -97,9 +100,9 @@
             })
 
             alert("Login realizado com sucesso! Redirecionando para a Dashboard...");
-            
+
             window.location = "./dashboard.html";
-            
+
             return false;
         }
         div_mensagem.innerHTML = mensagem;
