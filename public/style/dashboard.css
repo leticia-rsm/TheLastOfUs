@@ -115,31 +115,56 @@
     opacity: 1;
 }
 
-/* GRAFICOS E KPI'S */
-.interacao {
-    width: 100%;
-    height: 50%;
+/* FORMULÁRIO */
+.questionario {
+    height: var(--tamanho-pagina);
     display: flex;
     align-items: center;
-    justify-content: center;
 }
 
-.interacao .kpi {
-    width: 50%;
+.questionario .container {
+    height: 90%;
+    width: 90%;
+    border-top: 2px solid rgb(98, 175, 107);
+    border-bottom: 2px solid rgb(98, 175, 107);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.questionario .pergunta {
     display: flex;
     align-items: center;
-    justify-content: flex-start;
 }
 
-.interacao .kpi span {
+.pergunta span {
+    text-align: center;
     font-size: 60px;
-    border: none;
 }
 
-.interacao .graficoAlinhado {
-    height: 70%;
+.questionario .botao {
+    height: 50%;
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
+.questionario button {
+    width: 90%;
+    height: 70px;
+    background-color: rgb(98, 175, 107);
+}
+
+.questionario button:hover {
+    transition: 0.5s;
+    background-color: #ffffff;
+    color: #0A0F0B;
+}
+
+/* GRAFICOS E KPI'S */
 .dash {
     height: calc(var(--tamanho-pagina) * 3);
     display: flex;
@@ -157,17 +182,55 @@
 }
 
 .kpi span {
-    font-size: 35px;
+    font-size: 40px;
     border-bottom: 2px solid #ffffff;
 }
 
 
 .grafico {
-    height: 80%;
+    height: 90%;
     width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
+}
+
+.grafico2 {
+    height: 70%;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.interacao {
+    width: 90%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.interacao .kpi {
+    width: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.interacao .kpi span {
+    font-size: 60px;
+    border: none;
+}
+
+.graficoAlinhado {
+    height: 100%;
+    width: 90%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-evenly;
 }
 
 .publico {
@@ -176,14 +239,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-}
-
-.graficoAlinhado {
-    height: 40%;
-    width: 80%;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
 }
 
 /* FOOTER */

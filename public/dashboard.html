@@ -66,16 +66,40 @@
             </div>
         </div>
     </section>
+    <div class="questionario">
+        <div class="container">
+            <div class="pergunta">
+                <span>Por que você escolheu essa opção?</span>
+            </div>
+            <div class="botao">
+                <button>A. Para quebrar o ciclo de vingança e trazer paz para a Ellie</button>
+                <button>B. Para vingar a morte do Joel, que foi um pai para a Ellie</button>
+                <button>C. Porque senti empatia pela Abby e entendi suas razões</button>
+                <button>D. Outra razão</button>
+            </div>
+        </div>
+    </div>
     <section id="section_grafico">
         <div class="dash">
+            <div class="kpi">
+                <span id="span_mensagem">Total de Votos: 0</span>
+            </div>
             <div class="interacao">
                 <div class="graficoAlinhado">
                     <div class="grafico">
                         <canvas id="myChart1"></canvas>
                     </div>
+                    <div class="grafico">
+                        <canvas id="Pergunta1"></canvas>
+                    </div>
                 </div>
-                <div class="kpi">
-                    <span id="span_mensagem">Total de Votos: 0</span>
+                <div class="graficoAlinhado">
+                    <div class="grafico">
+                        <canvas id="Pergunta2"></canvas>
+                    </div>
+                    <div class="grafico">
+                        <canvas id="Pergunta3"></canvas>
+                    </div>
                 </div>
             </div>
             <div class="publico">
@@ -88,12 +112,12 @@
                 <span id="span_hbo">Quantidade de acessos no site oficial da HBO: 0</span>
             </div>
             <div class="graficoAlinhado">
-                <div class="grafico">
+                <div class="grafico2">
                     <canvas id="myChart2"></canvas>
                 </div>
             </div>
             <div class="graficoAlinhado">
-                <div class="grafico">
+                <div class="grafico2">
                     <canvas id="myChart3"></canvas>
                 </div>
             </div>
@@ -156,8 +180,8 @@
                 label: '# of Votes',
                 data: [votoSalvar, votoMatar],
                 backgroundColor: [
-                    'rgb(48, 81, 107)',
-                    'rgb(138, 65, 20)'
+                    'rgb(89, 192, 75)',
+                    'rgb(195, 58, 58)'
                 ],
                 borderWidth: 0
             }]
@@ -165,21 +189,22 @@
     }
     );
 
-    const dados2 = document.getElementById('myChart2');
+    // GRAFICO PERGUNTAS
+    const dadosP1 = document.getElementById('Pergunta1');
 
-    // GRÁFICO 2
-    new Chart(dados2, {
+
+    new Chart(dadosP1, {
         type: 'bar',
         data: {
-            labels: ['18 a 21 anos', '22 a 28 anos', '29 a 40 anos', '50+ anos'],
+            labels: ['Quebrar o ciclo de vingança', 'Vingar o Joel', 'Entende as razões da Abby', 'Outro'],
             datasets: [{
-                label: 'Faixa Etária',
-                data: [25, 70, 40, 14],
+                label: 'Por que você escolheu essa opção?',
+                data: [59, 75, 30, 37],
                 backgroundColor: [
-                    'rgb(48, 81, 107)',
-                    'rgb(51, 110, 70)',
-                    'rgb(51, 110, 70)',
-                    'rgb(48, 81, 107)'
+                    'rgb(255, 147, 23)',
+                    'rgb(255, 147, 23)',
+                    'rgb(255, 147, 23)',
+                    'rgb(255, 147, 23)'
                 ],
                 borderWidth: 0
             }]
@@ -190,6 +215,79 @@
                     beginAtZero: true
                 }
             }
+        }
+    });
+
+
+    const dadosP2 = document.getElementById('Pergunta2');
+
+    new Chart(dadosP2, {
+        type: 'bar',
+        data: {
+            labels: ['Aliviado(a)', 'Triste', 'Com raiva', 'Conflituoso(a)'],
+            datasets: [{
+                label: 'Como você se sentiu ao fazer essa escolha?',
+                data: [70, 27, 10, 60],
+                backgroundColor: [
+                    'rgb(222, 212, 82)',
+                    'rgb(222, 212, 82)',
+                    'rgb(222, 212, 82)',
+                    'rgb(222, 212, 82)'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const dadosP3 = document.getElementById('Pergunta3');
+
+    new Chart(dadosP3, {
+        type: 'bar',
+        data: {
+            labels: ['Traria paz', 'Mais conflitos', 'Seguir em frente com menos peso', 'Novo trauma'],
+            datasets: [{
+                label: 'Qual você acha que seria o impacto dessa escolha no futuro dos personagens?',
+                data: [30, 50, 66, 80],
+                backgroundColor: [
+                    'rgb(75, 192, 192)',
+                    'rgb(75, 192, 192)',
+                    'rgb(75, 192, 192)',
+                    'rgb(75, 192, 192)'
+                ],
+                borderWidth: 0
+            }]
+        },
+        options: {
+            scales: {
+                y: {
+                    beginAtZero: true
+                }
+            }
+        }
+    });
+
+    const dados2 = document.getElementById('myChart2');
+
+    // GRÁFICO LINHA
+    new Chart(dados2, {
+        type: 'line',
+        data: {
+            labels: ['18 a 21 anos', '22 a 28 anos', '29 a 40 anos', '50+ anos'],
+            datasets: [{
+                label: 'My First Dataset',
+                data: [65, 59, 80, 81],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgb(75, 192, 192)',
+                tension: 0.1
+            }],
         }
     });
 
@@ -204,11 +302,11 @@
                 label: 'Dispositivos mais utilizados',
                 data: [40, 80, 20, 60, 50],
                 backgroundColor: [
-                    'rgb(51, 110, 70)',
-                    'rgb(48, 81, 107)',
-                    'rgb(109, 36, 42)',
-                    'rgb(161, 150, 26)',
-                    'rgb(54, 110, 101)'
+                    'rgb(89, 192, 75)',
+                    'rgb(195, 58, 58)',
+                    'rgb(255, 147, 23)',
+                    'rgb(222, 212, 82)',
+                    'rgb(75, 192, 192)'
                 ],
                 borderWidth: 0
             }]
