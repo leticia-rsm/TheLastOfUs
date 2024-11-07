@@ -34,24 +34,29 @@
                             <div class="campo_usuario">
                                 <span>Usuário</span>
                                 <input type="text" placeholder="Leticia" id="input_usuario" style="color: black">
+                                <div id="div_mensagemUsuario"></div>
                             </div>
                             <div class="campo_dt">
                                 <span>Data de Nascimento:</span>
                                 <input type="date" id="input_idade" style="color: black">
+                                <div id="div_mensagemDt"></div>
                             </div>
                         </div>
                         <div class="campo">
                             <span>E-mail:</span>
                             <input type="text" placeholder="Ex: email@email.com" id="input_email" style="color: black">
+                            <div id="div_mensagemEmail"></div>
                         </div>
                         <div class="campo">
                             <span>Senha:</span>
                             <input type="password" placeholder="********" id="input_senha" style="color: black">
+                            <div id="div_mensagemSenha"></div>
                         </div>
                         <div class="campo">
                             <span>Confirme sua senha:</span>
                             <input type="password" placeholder="********" id="input_confirma_senha"
                                 style="color: black">
+                            <div id="div_mensagemConfirma"></div>
                         </div>
                         <div class="campo">
                             <span>Qual seu dispositivo?</span>
@@ -63,14 +68,15 @@
                                 <option value="outro">Outro</option>
                                 <option value="#" disabled selected>Selecione...</option>
                             </select>
+                            <div id="div_mensagemDisp"></div>
                         </div>
                     </div>
                     <div class="entrarCadastro">
                         <button onclick="cadastro()">Registrar</button>
                         <span>Já possui uma conta? Faça seu login <a href="login.html"
                                 style="color: rgb(9, 255, 120)">aqui!</a></span>
+                        <div id="div_mensagem" style="color: rgb(9, 255, 120)"></div>
                     </div>
-                    <div id="div_mensagem"></div>
                 </div>
             </div>
         </div>
@@ -80,9 +86,16 @@
 </html>
 
 <script>
-    function cadastro() {
-        var mensagem = ``;
+    var usuarioValido = false;
+    var idadeValido = false;
+    var emailValido = false;
+    var senhaValido = false;
+    var confirmaValido = false;
+    var dispValido = false;
 
+    var cadastroValido = true;
+
+    function cadastro() {
         var usuario = input_usuario.value;
         var tamanho_usuario = usuario.length;
 
@@ -95,29 +108,63 @@
         var tamanho_senha = senha.length;
 
         var confirma_senha = input_confirma_senha.value;
-        var tamanho_confirma = confirma_senha.length;
 
         var dispositivo = select_dispositivo.value;
 
-        var termina_com = email.endsWith(".com");
+        var ponto = email.includes(".");
         var arroba = email.includes('@');
         var caractereEspecial = senha.includes('!') || senha.includes('@') || senha.includes('#') || senha.includes('$');
 
-        var temErro = false;
+        if (usuario == "" || idade == "" || email == "" || senha == "") {
 
-        if (tamanho_usuario <= 1) {
-            mensagem += `<br> Usuário deve ter no mínimo 2 caracteres`;
-        } else if (idade == "") {
-            mensagem += `Data inválida`;
-        } else if (tamanho_email <= 6 || termina_com == false || arroba == false) {
-            mensagem += `<br> Email inválido`;
-        } else if (senha != confirma_senha) {
-            mensagem += `<br> As senhas estão diferentes`;
-        } else if (senha == "" || caractereEspecial == false || tamanho_senha < 7) {
-            mensagem += `<br> Senha deve ter no mínimo 1 caractere especial e no mínimo 8 caracteres <br>
-            Caracteres especiais: "!", "@", "#", "$"`;
-        } else if (dispositivo == "#") {
-            mensagem += `<br> Insira um dispositivo`;
+            if (tamanho_usuario <= 1) {
+                div_mensagemUsuario.innerHTML = `Usuário deve ter no mínimo 2 caracteres`;
+                usuarioValido = false;
+            } else {
+                div_mensagemUsuario.innerHTML = ``;
+                usuarioValido = true;
+            }
+
+            if (idade < "01/01/1900") {
+                div_mensagemDt.innerHTML = `Data inválida`;
+                idadeValido = false;
+            } else {
+                div_mensagemDt.innerHTML = ``;
+                idadeValido = true;
+            }
+
+            if (tamanho_email <= 6 || ponto == false || arroba == false) {
+                div_mensagemEmail.innerHTML = `Email inválido`;
+                emailValido = false;
+            } else {
+                div_mensagemEmail.innerHTML = ``;
+                emailValido = true;
+            }
+
+            if (caractereEspecial == false || tamanho_senha < 7) {
+                div_mensagemSenha.innerHTML = `Senha deve ter no mínimo 1 caractere especial e no mínimo 8 caracteres. Caracteres especiais: "!", "@", "#", "$"`;
+                senhaValido = false;
+            } else {
+                div_mensagemSenha.innerHTML = ``;
+                senhaValido = true;
+            }
+
+            if (confirma_senha != senha) {
+                div_mensagemConfirma.innerHTML = `As senhas estão diferentes`;
+                confirmaValido = false;
+            } else {
+                div_mensagemConfirma.innerHTML = ``;
+                confirmaValido = true;
+            }
+
+            if (dispositivo == "#") {
+                div_mensagemDisp.innerHTML = `Insira um dispositivo`;
+                dispValido = false;
+            } else {
+                div_mensagemDisp.innerHTML = ``;
+                dispValido = true;
+            }
+
         } else {
 
             // Enviando o valor da nova input
@@ -140,24 +187,29 @@
                     console.log("resposta: ", resposta);
 
                     if (resposta.ok) {
-                        cardErro.style.display = "block";
+                        div_mensagem.innerHTML = `Cadastro realizado com sucesso! Redirecionando para tela de Login...`;
 
+                        setTimeout(() => {
+                            window.location = "login.html";
+                        }, "2000");
 
-                    } else {
-                        alert("Houve um erro ao tentar realizar o cadastro!");
+                        limparFormulario();
+                        finalizarAguardar();
+                    } else if(usuarioValido == false || idadeValido == false || emailValido == false || senhaValido == false || confirmaValido == false || dispValido == false) {
+                        div_mensagem.innerHTML = `Preencha todos os campos para prosseguir`;
                     }
                 })
-                .catch(function (resposta) {
-                    console.log(`#ERRO: ${resposta}`);
-                });
-
-            alert("Cadastro realizado com sucesso! Redirecionando para o Login...");
-
-            window.location = "login.html";
 
             return false;
-        }
 
-        div_mensagem.innerHTML = mensagem;
+            // if (usuarioValido == false || idadeValido == false || emailValido == false || senhaValido == false || confirmaValido == false || dispValido == false) {
+            //     div_mensagem.innerHTML = `Preencha todos os campos para prosseguir`;
+            // } else {
+            //     alert("Cadastro realizado com sucesso! Redirecionando para o Login...");
+
+            //     window.location = "login.html";
+
+            // }
+        }
     }
 </script>

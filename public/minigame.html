@@ -47,6 +47,11 @@
 </html>
 
 <script>
+    // WEB-DATA-VIZ
+    if (sessionStorage.NOME_USUARIO != undefined) {
+        span_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    }
+
     const guitarra = new Tone.Sampler({
         urls: {
             "E2": "E2.mp3",  // Mi grave - 6 corda
