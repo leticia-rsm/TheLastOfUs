@@ -44,7 +44,6 @@ h1 {
     flex-direction: row;
     justify-content: space-evenly;
     list-style: none;
-
 }
 
 .navItens a:hover {
