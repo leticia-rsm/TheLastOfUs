@@ -66,16 +66,16 @@
             </div>
         </div>
     </section>
-    <div class="questionario">
+    <div class="questionario" id="pergunta1">
         <div class="container">
             <div class="pergunta">
                 <span>Por que você escolheu essa opção?</span>
             </div>
             <div class="botao">
-                <button>A. Para quebrar o ciclo de vingança e trazer paz para a Ellie</button>
-                <button>B. Para vingar a morte do Joel, que foi um pai para a Ellie</button>
-                <button>C. Porque senti empatia pela Abby e entendi suas razões</button>
-                <button>D. Outra razão</button>
+                <button onclick="alternativaA()">A. Para quebrar o ciclo de vingança e trazer paz para a Ellie</button>
+                <button onclick="alternativa()">B. Para vingar a morte do Joel, que foi um pai para a Ellie</button>
+                <button onclick="alternativa()">C. Porque senti empatia pela Abby e entendi suas razões</button>
+                <button onclick="alternativa()">D. Outra razão</button>
             </div>
         </div>
     </div>
@@ -132,6 +132,46 @@
     // WEB-DATA-VIZ
     if (sessionStorage.NOME_USUARIO != undefined) {
         span_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    }
+
+    // QUESTIONARIO
+    var proxima_questao = 0;
+
+    var lista_A = [];
+    var lista_B = [];
+    var lista_C = [];
+    var lista_D = [];
+
+    function alternativaA() {
+        proxima_questao++;
+
+        if(proxima_questao == 1) {
+            lista_A.push("A");
+        }
+    }
+
+    function alternativaB() {
+        proxima_questao++;
+
+        if(proxima_questao == 1) {
+            lista_B.push("B");
+        }
+    }
+
+    function alternativaC() {
+        proxima_questao++;
+
+        if(proxima_questao == 1) {
+            lista_C.push("C");
+        }
+    }
+
+    function alternativaD() {
+        proxima_questao++;
+
+        if(proxima_questao == 1) {
+            lista_D.push("D");
+        }
     }
 
     // CONTABILIDADE DE VOTOS
@@ -299,7 +339,7 @@
             labels: ['Playstation 5', 'Playstation 4', 'Playstation 3', 'Notebook/Desktop', 'Outro'],
             datasets: [{
                 label: 'Dispositivos mais utilizados',
-                data: [40, 80, 20, 60, 50],
+                data: [ps5, ps4, 20, 60, 50],
                 backgroundColor: [
                     'rgb(89, 192, 75)',
                     'rgb(195, 58, 58)',
