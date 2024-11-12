@@ -25,7 +25,7 @@ descricao VARCHAR(100)
 CREATE TABLE resposta (
 idResposta INT PRIMARY KEY AUTO_INCREMENT,
 r_alternativa CHAR(1),
-CONSTRAINT chkr_alternativa CHECK (r_alternativa IN('a', 'b', 'c', 'd')),
+CONSTRAINT chkr_alternativa CHECK (r_alternativa IN('A', 'B', 'C', 'D')),
 fkPesquisa INT,
 CONSTRAINT fkPesquisaResposta FOREIGN KEY (fkPesquisa)
 	REFERENCES pesquisa(idPesquisa)
@@ -41,3 +41,9 @@ CONSTRAINT fkRespostaAlternativa FOREIGN KEY (fkResposta)
 	REFERENCES resposta(idResposta),
 PRIMARY KEY (idAlternativa, fkUsuario, fkResposta)
 )AUTO_INCREMENT = 3000;
+
+-- QUESTIONÁRIO
+SELECT resposta.r_alternativa, COUNT(alternativa.fkResposta) FROM usuario JOIN alternativa 
+	ON usuario.idUsuario = alternativa.fkUsuario JOIN resposta 
+    ON resposta.idResposta = alternativa.fkResposta
+	GROUP BY resposta.r_alternativa;
