@@ -57,10 +57,10 @@
             </div>
             <div class="imagens">
                 <section>
-                    <img id="img1" src="./assets/img/ellieFinal.jpg" onclick="escolha01()">
+                    <img id="img1" src="./assets/img/ellieFinal.jpg" onclick="escolha('A')">
                     <p class="ellieFinal">Salvar a Abby</p>
 
-                    <img id="img2" src="./assets/img/abbyFinal.png" onclick="escolha02()">
+                    <img id="img2" src="./assets/img/abbyFinal.png" onclick="escolha('B')">
                     <p class="abbyFinal">Matar a Abby</p>
                 </section>
             </div>
@@ -139,6 +139,22 @@
         span_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     }
 
+    // CONTABILIDADE DE VOTOS
+    var votoA = 0;
+    var votoB = 0;
+
+    // VOTOS
+    function escolha(resposta) {
+        if (resposta == 'A') {
+            votoA++;
+        }
+
+        if (resposta == 'B') {
+            votoB++;
+        }
+        span_mensagem.innerHTML = `Total de Votos: ${votoA + votoB}`;
+    }
+
     // QUESTIONARIO
     var click = 1;
 
@@ -164,44 +180,27 @@
 
             click = 0;
         } else {
-            Obrigada
+            window.location.hash = "section_grafico";
         }
-    }
-
-    // CONTABILIDADE DE VOTOS
-    var totalVotos = 0;
-    var votoSalvar = 10;
-    var votoMatar = 20;
-
-    // VOTOS
-    function escolha01() {
-        console.log(votoSalvar)
-        totalVotos++
-        votoSalvar++
-
-        span_mensagem.innerHTML = `Total de Votos: ${totalVotos}`;
-    }
-
-    function escolha02() {
-        totalVotos++
-        votoMatar++
-
-        span_mensagem.innerHTML = `Total de Votos: ${totalVotos}`;
     }
 
     // CLICKES
     var clickPS = 0;
     var clickHBO = 0;
 
-    function linkPS() {
-        clickPS++
+    function link(resposta) {
+        if (resposta == 'PS') {
+            clickPS++;
+        }
+
+        if (resposta == 'HBO') {
+            clickHBO++;
+        }
 
         document.getElementById(span_ps) = `Quantidade de acessos no site oficial da Playstation: ${clickPS}`;
     }
 
-    function linkHBO() {
-        clickHBO++
-    }
+    // GRAFICOS E KPI's
 
     const dados1 = document.getElementById('myChart1');
 
@@ -211,7 +210,7 @@
         data: {
             labels: ['Salvar', 'Matar'],
             datasets: [{
-                data: [votoSalvar, votoMatar],
+                data: [25, 75],
                 backgroundColor: [
                     'rgb(89, 192, 75)',
                     'rgb(195, 58, 58)'
@@ -224,7 +223,6 @@
 
     // GRAFICO PERGUNTAS
     const dadosP1 = document.getElementById('Pergunta1');
-
 
     new Chart(dadosP1, {
         type: 'bar',
@@ -284,7 +282,7 @@
     new Chart(dadosP3, {
         type: 'bar',
         data: {
-            labels: ['Traria paz', 'Mais conflitos', 'Seguir em frente com menos peso', 'Novo trauma'],
+            labels: ['Traria paz', 'Mais conflitos', 'Menor peso', 'Novo trauma'],
             datasets: [{
                 label: 'Qual você acha que seria o impacto dessa escolha no futuro dos personagens?',
                 data: [30, 50, 66, 80],
@@ -314,7 +312,7 @@
         data: {
             labels: ['18 a 21 anos', '22 a 28 anos', '29 a 40 anos', '50+ anos'],
             datasets: [{
-                label: 'My First Dataset',
+                label: 'Faixa Etária',
                 data: [65, 59, 80, 81],
                 fill: false,
                 borderColor: 'rgb(75, 192, 192)',
@@ -333,7 +331,7 @@
             labels: ['Playstation 5', 'Playstation 4', 'Playstation 3', 'Notebook/Desktop', 'Outro'],
             datasets: [{
                 label: 'Dispositivos mais utilizados',
-                data: [ps5, ps4, 20, 60, 50],
+                data: [20, 40, 20, 60, 50],
                 backgroundColor: [
                     'rgb(89, 192, 75)',
                     'rgb(195, 58, 58)',
