@@ -68,14 +68,19 @@
     </section>
     <div class="questionario" id="pergunta1">
         <div class="container">
-            <div class="pergunta">
-                <span>Por que você escolheu essa opção?</span>
+            <div class="indicador">
+                <span id="span_indicador">1/3</span>
             </div>
-            <div class="botao">
-                <button onclick="alternativaA()">A. Para quebrar o ciclo de vingança e trazer paz para a Ellie</button>
-                <button onclick="alternativa()">B. Para vingar a morte do Joel, que foi um pai para a Ellie</button>
-                <button onclick="alternativa()">C. Porque senti empatia pela Abby e entendi suas razões</button>
-                <button onclick="alternativa()">D. Outra razão</button>
+            <div class="pergunta">
+                <span id="span_pergunta">Por que você escolheu essa opção?</span>
+            </div>
+            <div class="botao" id="div_alternativa">
+                <button onclick="pegarResposta('A')" id="id_buttonA">A. Para quebrar o ciclo de vingança e trazer paz para a
+                    Ellie.</button>
+                <button onclick="pegarResposta('B')" id="id_buttonB">B. Para vingar a morte do Joel, que foi um pai para a
+                    Ellie.</button>
+                <button onclick="pegarResposta('C')" id="id_buttonC">C. Porque senti empatia pela Abby e entendi suas razões.</button>
+                <button onclick="pegarResposta('D')" id="id_buttonD">D. Outra razão...</button>
             </div>
         </div>
     </div>
@@ -135,42 +140,31 @@
     }
 
     // QUESTIONARIO
-    var proxima_questao = 0;
+    var click = 1;
 
-    var lista_A = [];
-    var lista_B = [];
-    var lista_C = [];
-    var lista_D = [];
+    function pegarResposta(resposta) {
+        // alert("Resposta: " + resposta)
 
-    function alternativaA() {
-        proxima_questao++;
+        if (click == 1) {
+            span_indicador.innerHTML = `2/3`;
+            span_pergunta.innerHTML = `Como você se sentiu ao fazer essa escolha?`;
+            id_buttonA.innerHTML = `A. Aliviado(a), como se tivesse feito a coisa certa.`;
+            id_buttonB.innerHTML = `B. Triste, mas achei que era necessário.`;
+            id_buttonC.innerHTML = `C. Com raiva e desejo de vingança.`;
+            id_buttonD.innerHTML = `D. Conflituoso(a), pois não foi uma decisão fácil.`;
+            
+            click++;
+        } else if (click == 2) {
+            span_indicador.innerHTML = `3/3`;
+            span_pergunta.innerHTML = `Qual você acha que seria o impacto dessa escolha no futuro dos personagens?`;
+            id_buttonA.innerHTML = `A. Traria paz e encerraria o ciclo de vingança.`;
+            id_buttonB.innerHTML = `B. Provocaria mais conflitos e possíveis retaliações.`;
+            id_buttonC.innerHTML = `C. Permitiria à Ellie seguir em frente com menos peso emocional.`;
+            id_buttonD.innerHTML = `D. Marcaria a Ellie com um novo trauma.`;
 
-        if(proxima_questao == 1) {
-            lista_A.push("A");
-        }
-    }
-
-    function alternativaB() {
-        proxima_questao++;
-
-        if(proxima_questao == 1) {
-            lista_B.push("B");
-        }
-    }
-
-    function alternativaC() {
-        proxima_questao++;
-
-        if(proxima_questao == 1) {
-            lista_C.push("C");
-        }
-    }
-
-    function alternativaD() {
-        proxima_questao++;
-
-        if(proxima_questao == 1) {
-            lista_D.push("D");
+            click = 0;
+        } else {
+            Obrigada
         }
     }
 
