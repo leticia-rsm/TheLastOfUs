@@ -274,7 +274,7 @@ hr {
 
 /* INFECTADOS */
 .bannerInfectados {
-    height: var(--tamanho-pagina);
+    height: calc(var(--tamanho-pagina) + 70vh);
 }
 
 .slider {
@@ -302,8 +302,21 @@ hr {
 }
 
 .slide-content {
-    
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden; /* Garante que imagens maiores não extrapolem o espaço */
 }
+
+.slide-content img {
+    width: 100%;
+    height: auto;
+    max-height: 100%; /* Garante que as imagens respeitem a altura máxima */
+    object-fit: cover; /* Ajusta o tamanho da imagem para preencher o espaço mantendo proporções */
+}
+
 
 #overflow {
     width: 100%;
@@ -347,74 +360,8 @@ hr {
     color: #fff;
 }
 
-#controls {
-    margin: -180px 0 0 0;
-    width: 100%;
-    height: 50px;
-    z-index: 3;
-    position: relative;
-}
-
-#controls label {
-    transition: opacity 0.2s ease-out;
-    display: none;
-    width: 50px;
-    height: 50px;
-    opacity: 0.4;
-}
-
-#controls label {
-    width: 50px;
-    height: 50px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Estilizando a seta esquerda */
-#controls .arrow-left {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    margin-right: auto;
-}
-
-/* Estilizando a seta direita */
-#controls .arrow-right {
-    width: 30px;
-    height: 30px;
-    cursor: pointer;
-    margin-left: auto;
-}
-
-#controls label:hover {
-    opacity: 1;
-}
-
-#slide1:checked ~ #controls label:nth-child(2),
-#slide2:checked ~ #controls label:nth-child(3),
-#slide3:checked ~ #controls label:nth-child(4),
-#slide4:checked ~ #controls label:nth-child(5),
-#slide5:checked ~ #controls label:nth-child(1) {
-    background: url('https://cdn-icons-png.flaticon.com/512/2989/2989988.png') no-repeat;
-    float: right;
-    margin: 0 -50px 0 0;
-    display: block;
-}
-
-#slide2:checked ~ #controls label:nth-child(1),
-#slide3:checked ~ #controls label:nth-child(2),
-#slide4:checked ~ #controls label:nth-child(3),
-#slide5:checked ~ #controls label:nth-child(4),
-#slide1:checked ~ #controls label:nth-child(5) {
-    background: url('https://cdn-icons-png.flaticon.com/512/2989/2989985.png') no-repeat;
-    float: left;
-    margin: 0 0 0 -50px;
-    display: block;
-}
-
 #bullets {
-    margin: 150px 0 0;
+    margin: 20px 0 0;
     text-align: center;
 }
 
@@ -433,6 +380,22 @@ hr {
 #slide4:checked ~ #bullets label:nth-child(4),
 #slide5:checked ~ #bullets label:nth-child(5) {
     background: #444;
+}
+
+/* TEXTO */
+.texto_infectados {
+    height: 50%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.texto_infectados span {
+    width: 80%;
+    font-size: 20px;
+    text-align: justify;
 }
 
 /* FOOTER */
