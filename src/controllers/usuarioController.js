@@ -26,8 +26,7 @@ function autenticar(req, res) {
                             dtNasc: resultadoAutenticar[0].dtNasc,
                             email: resultadoAutenticar[0].email,
                             senha: resultadoAutenticar[0].senha,
-                            dispositivo: resultadoAutenticar[0].dispositivo,
-                            fkEscolha: resultadoAutenticar[0].fkEscolha
+                            dispositivo: resultadoAutenticar[0].dispositivo
                         });
 
                     } else if (resultadoAutenticar.length == 0) {

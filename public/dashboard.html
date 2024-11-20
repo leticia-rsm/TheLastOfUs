@@ -27,7 +27,7 @@
                     <a href="#section_grafico">Gráficos</a>
                 </li>
                 <li>
-                    <a href="../public/minigame.html">Minigame ▸</a>
+                    <a href="./minigame.html">Minigame ▸</a>
                 </li>
             </ul>
             <div class="perfil">
@@ -68,7 +68,7 @@
     </section>
     <div class="questionario" id="pergunta1">
         <div class="container">
-            <div class="indicador">
+            <div class="indicador" id="div_indicador">
                 <span id="span_indicador">1/3</span>
             </div>
             <div class="pergunta">
@@ -159,6 +159,7 @@
     var click = 1;
 
     function pegarResposta(resposta) {
+        
         if (click == 1) {
             span_indicador.innerHTML = `2/3`;
             span_pergunta.innerHTML = `Como você se sentiu ao fazer essa escolha?`;
@@ -176,9 +177,11 @@
             id_buttonC.innerHTML = `C. Permitiria à Ellie seguir em frente com menos peso emocional.`;
             id_buttonD.innerHTML = `D. Marcaria a Ellie com um novo trauma.`;
 
-            click = 0;
+            click++;
         } else {
-            window.location.hash = "section_grafico";
+            div_alternativa.style.display = 'none';
+            div_indicador.style.display = 'none';
+            span_pergunta.innerHTML = `Sua resposta foi registrada...`;
         }
     }
 
@@ -198,7 +201,10 @@
         document.getElementById(span_ps) = `Quantidade de acessos no site oficial da Playstation: ${clickPS}`;
     }
 
-    // GRAFICOS E KPI's
+    // KPI's
+    
+
+    // GRAFICOS
 
     const dados1 = document.getElementById('myChart1');
 

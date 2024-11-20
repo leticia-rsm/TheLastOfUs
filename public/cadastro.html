@@ -196,20 +196,11 @@
                         limparFormulario();
                         finalizarAguardar();
                     } else if(usuarioValido == false || idadeValido == false || emailValido == false || senhaValido == false || confirmaValido == false || dispValido == false) {
-                        div_mensagem.innerHTML = `Preencha todos os campos para prosseguir`;
+                        div_mensagem.innerHTML = `<span style="color: red">Preencha todos os campos para prosseguir</span>`;
                     }
                 })
 
             return false;
-
-            // if (usuarioValido == false || idadeValido == false || emailValido == false || senhaValido == false || confirmaValido == false || dispValido == false) {
-            //     div_mensagem.innerHTML = `Preencha todos os campos para prosseguir`;
-            // } else {
-            //     alert("Cadastro realizado com sucesso! Redirecionando para o Login...");
-
-            //     window.location = "login.html";
-
-            // }
         }
     }
 </script>
