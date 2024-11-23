@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="capturaDados()">
+<body onload="inicializar()">
     <div class="header">
         <div class="container">
             <div class="logo">
@@ -75,11 +75,12 @@
                 <span id="span_pergunta">Por que você escolheu essa opção?</span>
             </div>
             <div class="botao" id="div_alternativa">
-                <button onclick="pegarResposta('A')" id="id_buttonA">A. Para quebrar o ciclo de vingança e trazer paz para a
-                    Ellie.</button>
-                <button onclick="pegarResposta('B')" id="id_buttonB">B. Para vingar a morte do Joel, que foi um pai para a
-                    Ellie.</button>
-                <button onclick="pegarResposta('C')" id="id_buttonC">C. Porque senti empatia pela Abby e entendi suas razões.</button>
+                <button onclick="pegarResposta('A')" id="id_buttonA">A. Para quebrar o ciclo de vingança e trazer paz
+                    para a Ellie.</button>
+                <button onclick="pegarResposta('B')" id="id_buttonB">B. Para vingar a morte do Joel, que foi um pai para
+                    a Ellie.</button>
+                <button onclick="pegarResposta('C')" id="id_buttonC">C. Porque senti empatia pela Abby e entendi suas
+                    razões.</button>
                 <button onclick="pegarResposta('D')" id="id_buttonD">D. Outra razão...</button>
             </div>
         </div>
@@ -159,7 +160,7 @@
     var click = 1;
 
     function pegarResposta(resposta) {
-        
+
         if (click == 1) {
             span_indicador.innerHTML = `2/3`;
             span_pergunta.innerHTML = `Como você se sentiu ao fazer essa escolha?`;
@@ -167,7 +168,7 @@
             id_buttonB.innerHTML = `B. Triste, mas achei que era necessário.`;
             id_buttonC.innerHTML = `C. Com raiva e desejo de vingança.`;
             id_buttonD.innerHTML = `D. Conflituoso(a), pois não foi uma decisão fácil.`;
-            
+
             click++;
         } else if (click == 2) {
             span_indicador.innerHTML = `3/3`;
@@ -200,113 +201,6 @@
 
         document.getElementById(span_ps) = `Quantidade de acessos no site oficial da Playstation: ${clickPS}`;
     }
-
-    // KPI's
-    
-
-    // GRAFICOS
-
-    const dados1 = document.getElementById('myChart1');
-
-    // GRÁFICO 1
-    new Chart(dados1, {
-        type: 'doughnut',
-        data: {
-            labels: ['Salvar', 'Matar'],
-            datasets: [{
-                data: [25, 75],
-                backgroundColor: [
-                    'rgb(89, 192, 75)',
-                    'rgb(195, 58, 58)'
-                ],
-                borderWidth: 0
-            }]
-        },
-    }
-    );
-
-    // GRAFICO PERGUNTAS
-    const dadosP1 = document.getElementById('Pergunta1');
-
-    new Chart(dadosP1, {
-        type: 'bar',
-        data: {
-            labels: ['Quebrar o ciclo de vingança', 'Vingar o Joel', 'Entende as razões da Abby', 'Outro'],
-            datasets: [{
-                label: 'Por que você escolheu essa opção?',
-                data: [59, 75, 30, 37],
-                backgroundColor: [
-                    'rgb(255, 147, 23)',
-                    'rgb(255, 147, 23)',
-                    'rgb(255, 147, 23)',
-                    'rgb(255, 147, 23)'
-                ],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-
-    const dadosP2 = document.getElementById('Pergunta2');
-
-    new Chart(dadosP2, {
-        type: 'bar',
-        data: {
-            labels: ['Aliviado(a)', 'Triste', 'Com raiva', 'Conflituoso(a)'],
-            datasets: [{
-                label: 'Como você se sentiu ao fazer essa escolha?',
-                data: [70, 27, 10, 60],
-                backgroundColor: [
-                    'rgb(222, 212, 82)',
-                    'rgb(222, 212, 82)',
-                    'rgb(222, 212, 82)',
-                    'rgb(222, 212, 82)'
-                ],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
-
-    const dadosP3 = document.getElementById('Pergunta3');
-
-    new Chart(dadosP3, {
-        type: 'bar',
-        data: {
-            labels: ['Traria paz', 'Mais conflitos', 'Menor peso', 'Novo trauma'],
-            datasets: [{
-                label: 'Qual você acha que seria o impacto dessa escolha no futuro dos personagens?',
-                data: [30, 50, 66, 80],
-                backgroundColor: [
-                    'rgb(75, 192, 192)',
-                    'rgb(75, 192, 192)',
-                    'rgb(75, 192, 192)',
-                    'rgb(75, 192, 192)'
-                ],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            scales: {
-                y: {
-                    beginAtZero: true
-                }
-            }
-        }
-    });
 
     const dados2 = document.getElementById('myChart2');
 
@@ -352,17 +246,244 @@
     }
     );
 
-    function capturaDados() {
+    function inicializar() {
+        dadosEscolhaFinal()
+        dadosPergunta1()
+        dadosPergunta2()
+        dadosPergunta3()
+    }
+
+    function inserirEscolha() {
+        // Logica FECTH INSERIR
+
+        dadosEscolhaFinal()
+    }
+
+    function dadosEscolhaFinal() {
         fetch(`/dash/capturarEscolhaFinal`, {
             method: "GET",
         })
             .then(function (resposta) {
                 resposta.json().then((dadosDashEscolha) => {
-                    console.log(dadosDashEscolha);
+                    const dados1 = document.getElementById('myChart1');
+
+                    // GRÁFICO 1
+                    new Chart(dados1, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Salvar', 'Matar'],
+                            datasets: [{
+                                data: [dadosDashEscolha[0].qtd, dadosDashEscolha[1].qtd],
+                                backgroundColor: [
+                                    'rgb(89, 192, 75)',
+                                    'rgb(195, 58, 58)'
+                                ],
+                                borderWidth: 0
+                            }]
+                        },
+                    }
+                    );
                 })
             })
             .catch(function (resposta) {
                 console.log(`#ERRO ${resposta}`);
+            })
+    }
+
+    function dadosPergunta1() {
+        fetch(`/dash/capturarPergunta1`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((dadosDashPergunta1) => {
+                    const dadosP1 = document.getElementById('Pergunta1');
+
+                    var qtdA = 0
+                    var qtdB = 0
+                    var qtdC = 0
+                    var qtdD = 0
+
+                    for (var i = 0; i < dadosDashPergunta1.length; i++) {
+                        var dadoDaVez = dadosDashPergunta1[i];
+
+                        if (dadoDaVez.r_alternativa == "A") {
+                            qtdA = dadoDaVez.qtd
+                        }
+
+                        if (dadoDaVez.r_alternativa == "B") {
+                            qtdA = dadoDaVez.qtd
+
+                        }
+
+                        if (dadoDaVez.r_alternativa == "C") {
+                            qtdA = dadoDaVez.qtd
+
+                        }
+
+                        if (dadoDaVez.r_alternativa == "D") {
+                            qtdA = dadoDaVez.qtd
+
+                        }
+                    }
+
+                    new Chart(dadosP1, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Quebrar o ciclo de vingança', 'Vingar o Joel', 'Entende as razões da Abby', 'Outro'],
+                            datasets: [{
+                                label: 'Por que você escolheu essa opção?',
+                                data: [qtdA, qtdB, qtdC, qtdD],
+                                backgroundColor: [
+                                    'rgb(255, 147, 23)',
+                                    'rgb(255, 147, 23)',
+                                    'rgb(255, 147, 23)',
+                                    'rgb(255, 147, 23)'
+                                ],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+
+                })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO ${resposta}`);
+            })
+    }
+
+    function dadosPergunta2() {
+        fetch(`/dash/capturarPergunta2`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((dadosPergunta2) => {
+                    const dadosP2 = document.getElementById('Pergunta2');
+
+                    var qtdA = 0
+                    var qtdB = 0
+                    var qtdC = 0
+                    var qtdD = 0
+
+                    for (var i = 0; i < dadosPergunta2.length; i++) {
+                        var element = dadosPergunta2[i];
+                        
+                        if (element.r_alternativa == "A") {
+                            qtdA = element.qtd;
+                        }
+
+                        if (element.r_alternativa == "B") {
+                            qtdB = element.qtd;
+                        }
+
+                        if (element.r_alternativa == "C") {
+                            qtdC = element.qtd;
+                        }
+
+                        if (element.r_alternativa == "D") {
+                            qtdD = element.qtd;
+                        }
+                    }
+
+                    new Chart(dadosP2, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Aliviado(a)', 'Triste', 'Com raiva', 'Conflituoso(a)'],
+                            datasets: [{
+                                label: 'Como você se sentiu ao fazer essa escolha?',
+                                data: [qtdA, qtdB, qtdC, qtdD],
+                                backgroundColor: [
+                                    'rgb(222, 212, 82)',
+                                    'rgb(222, 212, 82)',
+                                    'rgb(222, 212, 82)',
+                                    'rgb(222, 212, 82)'
+                                ],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+
+                })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO ${resposta}`)
+            })
+    }
+
+    function dadosPergunta3() {
+        fetch(`/dash/capturarPergunta3`, {
+            method: "GET"
+        })
+            .then(function (resposta) {
+                resposta.json().then((dadosPergunta3) => {
+                    const dadosP3 = document.getElementById('Pergunta3');
+
+                    var qtdA = 0;
+                    var qtdB = 0;
+                    var qtdC = 0;
+                    var qtdD = 0;
+
+                    for (var i = 0; i < dadosPergunta3.length; i++) {
+                        var element = dadosPergunta3[i];
+                        
+                        if (element.r_alternativa == "A") {
+                            qtdA = element.qtd;
+                        }
+
+                        if (element.r_alternativa == "B") {
+                            qtdB = element.qtd;
+                        }
+
+                        if (element.r_alternativa == "C") {
+                            qtdC = element.qtd;
+                        }
+
+                        if (element.r_alternativa == "D") {
+                            qtdD = element.qtd;
+                        }
+                    }
+
+                    new Chart(dadosP3, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Traria paz', 'Mais conflitos', 'Menor peso', 'Novo trauma'],
+                            datasets: [{
+                                label: 'Qual você acha que seria o impacto dessa escolha no futuro dos personagens?',
+                                data: [qtdA, qtdB, qtdC, qtdD],
+                                backgroundColor: [
+                                    'rgb(75, 192, 192)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(75, 192, 192)'
+                                ],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            scales: {
+                                y: {
+                                    beginAtZero: true
+                                }
+                            }
+                        }
+                    });
+                })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO ${resposta}`)
             })
     }
 </script>
