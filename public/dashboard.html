@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body>
+<body onload="capturaDados()">
     <div class="header">
         <div class="container">
             <div class="logo">
@@ -351,4 +351,18 @@
         }
     }
     );
+
+    function capturaDados() {
+        fetch(`/dash/capturarEscolhaFinal`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((dadosDashEscolha) => {
+                    console.log(dadosDashEscolha);
+                })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO ${resposta}`);
+            })
+    }
 </script>
