@@ -202,55 +202,12 @@
         document.getElementById(span_ps) = `Quantidade de acessos no site oficial da Playstation: ${clickPS}`;
     }
 
-    const dados2 = document.getElementById('myChart2');
-
-    // GRÁFICO LINHA
-    new Chart(dados2, {
-        type: 'line',
-        data: {
-            labels: ['18 a 21 anos', '22 a 28 anos', '29 a 40 anos', '50+ anos'],
-            datasets: [{
-                label: 'Faixa Etária',
-                data: [65, 59, 80, 81],
-                fill: false,
-                borderColor: 'rgb(75, 192, 192)',
-                backgroundColor: 'rgb(75, 192, 192)',
-                tension: 0.1
-            }],
-        }
-    });
-
-    const dados3 = document.getElementById('myChart3');
-
-    // GRÁFICO 3
-    new Chart(dados3, {
-        type: 'bar',
-        data: {
-            labels: ['Playstation 5', 'Playstation 4', 'Playstation 3', 'Notebook/Desktop', 'Outro'],
-            datasets: [{
-                label: 'Dispositivos mais utilizados',
-                data: [20, 40, 20, 60, 50],
-                backgroundColor: [
-                    'rgb(89, 192, 75)',
-                    'rgb(195, 58, 58)',
-                    'rgb(255, 147, 23)',
-                    'rgb(222, 212, 82)',
-                    'rgb(75, 192, 192)'
-                ],
-                borderWidth: 0
-            }]
-        },
-        options: {
-            indexAxis: 'y',
-        }
-    }
-    );
-
     function inicializar() {
         dadosEscolhaFinal()
         dadosPergunta1()
         dadosPergunta2()
         dadosPergunta3()
+        dispositivos()
     }
 
     function inserirEscolha() {
@@ -360,7 +317,7 @@
 
     function dadosPergunta2() {
         fetch(`/dash/capturarPergunta2`, {
-            method: "GET",
+            method: "GET"
         })
             .then(function (resposta) {
                 resposta.json().then((dadosPergunta2) => {
@@ -373,7 +330,7 @@
 
                     for (var i = 0; i < dadosPergunta2.length; i++) {
                         var element = dadosPergunta2[i];
-                        
+
                         if (element.r_alternativa == "A") {
                             qtdA = element.qtd;
                         }
@@ -438,7 +395,7 @@
 
                     for (var i = 0; i < dadosPergunta3.length; i++) {
                         var element = dadosPergunta3[i];
-                        
+
                         if (element.r_alternativa == "A") {
                             qtdA = element.qtd;
                         }
@@ -481,6 +438,129 @@
                         }
                     });
                 })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO ${resposta}`)
+            })
+    }
+
+    // GRÁFICO PIZZA
+    function idade() {
+        fetch(`dash/capturarIdade`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((dadosIdade) => {
+                    const dados2 = document.getElementById('myChart2');
+
+                    var qtd18 = 0;
+                    var qtd22 = 0;
+                    var qtd26 = 0;
+                    var qtd30 = 0;
+
+                    for (var i = 0; i < dadosIdade.length; i++) {
+                        var element = dadosIdade[i];
+
+                        if (element.dtNasc >= '2003-01-01' && element.dtNasc <= '2006-01-01') {
+                            qtd18 = element.qtd
+                        }
+
+                        if (element.dtNasc >= '1999-01-01' && element.dtNasc <= '2002-01-01') {
+                            qtd22 = element.qtd
+                        }
+
+                        if (element.dtNasc >= '1995-01-01' && element.dtNasc <= '1998-01-01') {
+                            qtd26 = element.qtd
+                        }
+
+                        if (element.dtNasc < '1994-01-01') {
+                            qtd30 = element.qtd
+                        }
+                    }
+
+                    new Chart(dados2, {
+                        type: 'pie',
+                        data: {
+                            labels: ['18 a 21', '22 a 25', '26 a 29', '30+'],
+                            datasets: [{
+                                data: [qtd18, qtd22, qtd26, qtd30],
+                                backgroundColor: [
+                                    'rgb(89, 192, 75)',
+                                    'rgb(195, 58, 58)',
+                                    'rgb(75, 192, 192)',
+                                    'rgb(222, 212, 82)'
+                                ],
+                                borderWidth: 0
+                            }]
+                        },
+                    }
+                    );
+                })
+            })
+    }
+
+    // GRÁFICO DISPOSITIVOS
+    function dispositivos() {
+        fetch(`dash/capturarDispositivo`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((dadosDispositivo) => {
+                    const dados3 = document.getElementById('myChart3');
+
+                    var qtdPS5 = 0;
+                    var qtdPS4 = 0;
+                    var qtdPS3 = 0;
+                    var qtdPC = 0;
+                    var qtdOutro = 0;
+
+                    for (var i = 0; i < dadosDispositivo.length; i++) {
+                        var element = dadosDispositivo[i];
+
+                        if (element.dispositivo == 'ps5') {
+                            qtdPS5 = element.qtd
+                        }
+
+                        if (element.dispositivo == 'ps4') {
+                            qtdPS4 = element.qtd
+                        }
+
+                        if (element.dispositivo == 'ps3') {
+                            qtdPS3 = element.qtd
+                        }
+
+                        if (element.dispositivo == 'pc') {
+                            qtdPC = element.qtd
+                        }
+
+                        if (element.dispositivo == 'outro') {
+                            qtdOutro = element.qtd
+                        }
+                    }
+
+                    new Chart(dados3, {
+                        type: 'bar',
+                        data: {
+                            labels: ['Playstation 5', 'Playstation 4', 'Playstation 3', 'Notebook/Desktop', 'Outro'],
+                            datasets: [{
+                                label: 'Dispositivos mais utilizados',
+                                data: [qtdPS5, qtdPS4, qtdPS3, qtdPC, qtdOutro],
+                                backgroundColor: [
+                                    'rgb(89, 192, 75)',
+                                    'rgb(195, 58, 58)',
+                                    'rgb(255, 147, 23)',
+                                    'rgb(222, 212, 82)',
+                                    'rgb(75, 192, 192)'
+                                ],
+                                borderWidth: 0
+                            }]
+                        },
+                        options: {
+                            indexAxis: 'y',
+                        }
+                    }
+                    );
+                });
             })
             .catch(function (resposta) {
                 console.log(`#ERRO ${resposta}`)

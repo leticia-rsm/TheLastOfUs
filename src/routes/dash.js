@@ -11,12 +11,20 @@ router.get("/capturarPergunta1", function (req, res) {
     dashController.capturarPergunta1(req, res);
 });
 
-router.get("capturarPergunta2", function (req, res) {
+router.get("/capturarPergunta2", function (req, res) {
     dashController.capturarPergunta2(req, res);
 })
 
-router.get("capturarPergunta3", function (req, res) {
+router.get("/capturarPergunta3", function (req, res) {
     dashController.capturarPergunta3(req, res);
+})
+
+router.get("/capturarIdade", function (req, res) {
+    dashController.capturarIdade(req, res);
+})
+
+router.get("/capturarDispositivo", function (req, res) {
+    dashController.capturarDispositivo(req, res);
 })
 
 module.exports = router;

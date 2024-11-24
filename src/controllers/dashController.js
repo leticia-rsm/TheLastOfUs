@@ -24,9 +24,23 @@ function capturarPergunta3(req, res) {
     })
 }
 
+function capturarIdade(req, res) {
+    dashModel.capturarIdade().then((resultado) => {
+        res.status(200).json(resultado);
+    })
+}
+
+function capturarDispositivo(req, res) {
+    dashModel.capturarDispositivo().then((resultado) => {
+        res.status(200).json(resultado);
+    })
+}
+
 module.exports = {
     capturarEscolhaFinal,
     capturarPergunta1,
     capturarPergunta2,
-    capturarPergunta3
+    capturarPergunta3,
+    capturarIdade,
+    capturarDispositivo
 }
