@@ -69,19 +69,16 @@
     <div class="questionario" id="pergunta1">
         <div class="container">
             <div class="indicador" id="div_indicador">
-                <span id="span_indicador">1/3</span>
+                <span id="span_indicador"></span>
             </div>
             <div class="pergunta">
-                <span id="span_pergunta">Por que você escolheu essa opção?</span>
+                <span id="span_pergunta"></span>
             </div>
             <div class="botao" id="div_alternativa">
-                <button onclick="pegarResposta('A')" id="id_buttonA">A. Para quebrar o ciclo de vingança e trazer paz
-                    para a Ellie.</button>
-                <button onclick="pegarResposta('B')" id="id_buttonB">B. Para vingar a morte do Joel, que foi um pai para
-                    a Ellie.</button>
-                <button onclick="pegarResposta('C')" id="id_buttonC">C. Porque senti empatia pela Abby e entendi suas
-                    razões.</button>
-                <button onclick="pegarResposta('D')" id="id_buttonD">D. Outra razão...</button>
+                <button onclick="pegarResposta('A')" id="id_buttonA">Responder Questionário</button>
+                <button onclick="pegarResposta('B')" id="id_buttonB"></button>
+                <button onclick="pegarResposta('C')" id="id_buttonC"></button>
+                <button onclick="pegarResposta('D')" id="id_buttonD"></button>
             </div>
         </div>
     </div>
@@ -145,23 +142,30 @@
     var votoB = 0;
 
     // VOTOS
-    function escolha(resposta) {
-        if (resposta == 'A') {
-            votoA++;
-        }
-
-        if (resposta == 'B') {
-            votoB++;
-        }
-        span_mensagem.innerHTML = `Total de Votos: ${votoA + votoB}`;
-    }
 
     // QUESTIONARIO
-    var click = 1;
+    var click = 0;
 
-    function pegarResposta(resposta) {
+    var lista_resposta = [];
+    var lista_pergunta = [];
 
-        if (click == 1) {
+    function pegarResposta(alternativa) {
+
+        if (click == 0) {
+            click++;
+        } else if (click == 1) {
+            span_indicador.innerHTML = `1/3`;
+            span_pergunta.innerHTML = `Por que você escolheu essa opção?`;
+            id_buttonA.innerHTML = `A. Para quebrar o ciclo de vingança e trazer paz para a Ellie.`;
+            id_buttonB.innerHTML = `B. Para vingar a morte do Joel, que foi um pai para a Ellie.`;
+            id_buttonC.innerHTML = `C. Porque senti empatia pela Abby e entendi suas razões.`;
+            id_buttonD.innerHTML = `D. Outra razão...`;
+
+            click++;
+
+            lista_resposta.push(alternativa);
+            lista_pergunta.push(2);
+        } else if (click == 2) {
             span_indicador.innerHTML = `2/3`;
             span_pergunta.innerHTML = `Como você se sentiu ao fazer essa escolha?`;
             id_buttonA.innerHTML = `A. Aliviado(a), como se tivesse feito a coisa certa.`;
@@ -170,7 +174,10 @@
             id_buttonD.innerHTML = `D. Conflituoso(a), pois não foi uma decisão fácil.`;
 
             click++;
-        } else if (click == 2) {
+
+            lista_resposta.push(alternativa);
+            lista_pergunta.push(3);
+        } else if (click == 3) {
             span_indicador.innerHTML = `3/3`;
             span_pergunta.innerHTML = `Qual você acha que seria o impacto dessa escolha no futuro dos personagens?`;
             id_buttonA.innerHTML = `A. Traria paz e encerraria o ciclo de vingança.`;
@@ -179,6 +186,9 @@
             id_buttonD.innerHTML = `D. Marcaria a Ellie com um novo trauma.`;
 
             click++;
+
+            lista_pergunta.push(alternativa);
+            lista_pergunta.push(4);
         } else {
             div_alternativa.style.display = 'none';
             div_indicador.style.display = 'none';
@@ -195,26 +205,38 @@
         dispositivos()
     }
 
-    function inserirEscolhaFinal() {
+    function inserirAlternativa() {
         // Logica FECTH INSERIR
         fetch(`/dash/inserirEscolhaFinal`, {
             method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    r_alternativaServer: lista_resposta,
+                    fkPesquisa: lista_pergunta,
+                }),
         })
             .then(function (resposta) {
-                
+
             })
 
         dadosEscolhaFinal()
     }
 
-    function total() {
+    function capturarTotal() {
         fetch(`/dash/capturarTotal`, {
             method: "GET",
         })
             .then(function (resposta) {
                 resposta.json().then((dadosTotal) => {
-                    
+                    span_mensagem.innerHTML = `Total de votos: ${dadosTotal.qtd}`;
                 })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO ${resposta}`);
             })
     }
 
@@ -228,11 +250,11 @@
             .then(function (resposta) {
                 resposta.json().then((dadosLink) => {
 
-                    if (dadosLink.nome == 'PS') {
+                    if (site == 'PS') {
                         clickPS += dadosLink.qtd;
                     }
 
-                    if (dadosLink.nome == 'HBO') {
+                    if (site == 'HBO') {
                         clickHBO += dadosLink.qtd;
                     }
 
@@ -284,10 +306,10 @@
                 resposta.json().then((dadosDashPergunta1) => {
                     const dadosP1 = document.getElementById('Pergunta1');
 
-                    var qtdA = 0
-                    var qtdB = 0
-                    var qtdC = 0
-                    var qtdD = 0
+                    var qtdA = 0;
+                    var qtdB = 0;
+                    var qtdC = 0;
+                    var qtdD = 0;
 
                     for (var i = 0; i < dadosDashPergunta1.length; i++) {
                         var dadoDaVez = dadosDashPergunta1[i];
@@ -352,10 +374,10 @@
                 resposta.json().then((dadosPergunta2) => {
                     const dadosP2 = document.getElementById('Pergunta2');
 
-                    var qtdA = 0
-                    var qtdB = 0
-                    var qtdC = 0
-                    var qtdD = 0
+                    var qtdA = 0;
+                    var qtdB = 0;
+                    var qtdC = 0;
+                    var qtdD = 0;
 
                     for (var i = 0; i < dadosPergunta2.length; i++) {
                         var element = dadosPergunta2[i];
@@ -482,7 +504,7 @@
                 resposta.json().then((dadosIdade) => {
                     const dados2 = document.getElementById('myChart2');
                     console.log(resposta)
-                    
+
                     var qtd18_21 = 0;
                     var qtd22_25 = 0;
                     var qtd26_29 = 0;
@@ -494,24 +516,24 @@
                         if (element >= 18 && element <= 21) {
                             qtd18_21++;
                         }
-                        
+
                         if (element >= 22 && element <= 25) {
                             qtd22_25++;
-                        } 
-                        
+                        }
+
                         if (element >= 26 && element <= 29) {
                             qtd26_29++;
-                        } 
-                        
+                        }
+
                         if (element >= 30) {
                             qtd30++;
                         }
                     }
 
-                    console.log(`Quantidade entre 18-21 anos: ${qtd18_21}`);
-                    console.log(`Quantidade entre 22-25 anos: ${qtd22_25}`);
-                    console.log(`Quantidade entre 26-29 anos: ${qtd26_29}`);
-                    console.log(`Quantidade com 30+ anos: ${qtd30}`);
+                    // console.log(`Quantidade entre 18-21 anos: ${qtd18_21}`);
+                    // console.log(`Quantidade entre 22-25 anos: ${qtd22_25}`);
+                    // console.log(`Quantidade entre 26-29 anos: ${qtd26_29}`);
+                    // console.log(`Quantidade com 30+ anos: ${qtd30}`);
 
                     new Chart(dados2, {
                         type: 'pie',

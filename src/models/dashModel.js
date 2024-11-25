@@ -75,6 +75,29 @@ function capturarLink() {
     return database.executar(instrucaoSql);
 }
 
+// TOTAL
+function capturarTotal() {
+    var instrucaoSql = `
+    SELECT COUNT(idAlternativa) 'qtd'
+	FROM alternativa JOIN resposta ON fkResposta = idResposta 
+    WHERE fkPesquisa = 1
+    GROUP BY fkPesquisa;
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
+
+
+// INSERTS
+function inserirAlternativa(r_alternativa, fkPesquisa) {
+    var instrucaoSql = `
+        INSERT INTO resposta (r_alternativa, fkPesquisa) VALUES ('${r_alternativa}', '${fkPesquisa}');
+    `;
+    return database.executar(instrucaoSql);
+}
+
+
 module.exports = {
     capturarEscolhaFinal,
     capturarPergunta1,
@@ -82,5 +105,7 @@ module.exports = {
     capturarPergunta3,
     capturarIdade,
     capturarDispositivo,
-    capturarLink
+    capturarLink,
+    capturarTotal,
+    inserirAlternativa
 }

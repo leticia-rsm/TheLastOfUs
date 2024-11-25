@@ -43,6 +43,39 @@ function capturarLink(req, res) {
     })
 }
 
+// TOTAL
+function capturarTotal(req, res) {
+    dashModel.capturarTotal().then((resultado) => {
+        res.status(200).json(resultado);
+    })
+}
+
+
+// INSERT INTO
+function inserirAlternativa(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var r_alternativa = req.body.r_alternativaServer;
+    var fkPesquisa = req.body.fkPesquisaServer;
+
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+    usuarioModel.inserirAlternativa(r_alternativa, fkPesquisa)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+
 module.exports = {
     capturarEscolhaFinal,
     capturarPergunta1,
@@ -50,5 +83,7 @@ module.exports = {
     capturarPergunta3,
     capturarIdade,
     capturarDispositivo,
-    capturarLink
+    capturarLink,
+    capturarTotal,
+    inserirAlternativa
 }
