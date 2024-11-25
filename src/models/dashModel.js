@@ -1,4 +1,3 @@
-const { capturarIdade } = require("../controllers/dashController");
 var database = require("../database/config");
 
 function capturarEscolhaFinal() {
@@ -51,8 +50,14 @@ function capturarPergunta3() {
 
 function capturarIdade() {
     var instrucaoSql = `
-    SELECT COUNT(dtNasc) FROM usuario
-	WHERE dtNasc >= '2003-01-01' AND dtNasc <= '2006-01-01';
+    SELECT nickname,
+    CASE 
+    	WHEN TIMESTAMPDIFF(YEAR, dtNasc, now()) <= 21 AND TIMESTAMPDIFF(YEAR, dtNasc, now()) >= 18 THEN '18 a 21'
+        WHEN TIMESTAMPDIFF(YEAR, dtNasc, now()) <= 25 AND TIMESTAMPDIFF(YEAR, dtNasc, now()) >= 22 THEN '22 a 25'
+        WHEN TIMESTAMPDIFF(YEAR, dtNasc, now()) <= 29 AND TIMESTAMPDIFF(YEAR, dtNasc, now()) >= 26 THEN '26 a 29'
+        WHEN TIMESTAMPDIFF(YEAR, dtNasc, now()) >= 30 THEN '30+'
+    END AS 'faixaEtaria'
+    FROM usuario;
     `;
 
     return database.executar(instrucaoSql);

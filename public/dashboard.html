@@ -210,8 +210,14 @@
         dispositivos()
     }
 
-    function inserirEscolha() {
+    function inserirEscolhaFinal() {
         // Logica FECTH INSERIR
+        fetch(`/dash/inserirEscolhaFinal`, {
+            method: "POST",
+        })
+            .then(function (resposta) {
+                
+            })
 
         dadosEscolhaFinal()
     }
@@ -461,22 +467,27 @@
                     for (var i = 0; i < dadosIdade.length; i++) {
                         var element = dadosIdade[i];
 
-                        if (element.dtNasc >= '2003-01-01' && element.dtNasc <= '2006-01-01') {
-                            qtd18 = element.qtd
+                        if (idade >= 18 && idade <= 21) {
+                            qtd18 += element.faixaEtaria;
                         }
-
-                        if (element.dtNasc >= '1999-01-01' && element.dtNasc <= '2002-01-01') {
-                            qtd22 = element.qtd
-                        }
-
-                        if (element.dtNasc >= '1995-01-01' && element.dtNasc <= '1998-01-01') {
-                            qtd26 = element.qtd
-                        }
-
-                        if (element.dtNasc < '1994-01-01') {
-                            qtd30 = element.qtd
+                        
+                        if (idade >= 22 && idade <= 25) {
+                            qtd22 += element.faixaEtaria;
+                        } 
+                        
+                        if (idade >= 26 && idade <= 29) {
+                            qtd26 += element.faixaEtaria;
+                        } 
+                        
+                        if (idade >= 30) {
+                            qtd30 += element.faixaEtaria;
                         }
                     }
+
+                    console.log(`Quantidade entre 18-21 anos: ${qtd18}`);
+                    console.log(`Quantidade entre 22-25 anos: ${qtd22}`);
+                    console.log(`Quantidade entre 26-29 anos: ${qtd26}`);
+                    console.log(`Quantidade com 30+ anos: ${qtd30}`);
 
                     new Chart(dados2, {
                         type: 'pie',
