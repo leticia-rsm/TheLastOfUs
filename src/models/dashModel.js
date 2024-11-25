@@ -50,14 +50,7 @@ function capturarPergunta3() {
 
 function capturarIdade() {
     var instrucaoSql = `
-    SELECT nickname,
-    CASE 
-    	WHEN TIMESTAMPDIFF(YEAR, dtNasc, now()) <= 21 AND TIMESTAMPDIFF(YEAR, dtNasc, now()) >= 18 THEN '18 a 21'
-        WHEN TIMESTAMPDIFF(YEAR, dtNasc, now()) <= 25 AND TIMESTAMPDIFF(YEAR, dtNasc, now()) >= 22 THEN '22 a 25'
-        WHEN TIMESTAMPDIFF(YEAR, dtNasc, now()) <= 29 AND TIMESTAMPDIFF(YEAR, dtNasc, now()) >= 26 THEN '26 a 29'
-        WHEN TIMESTAMPDIFF(YEAR, dtNasc, now()) >= 30 THEN '30+'
-    END AS 'faixaEtaria'
-    FROM usuario;
+    SELECT TIMESTAMPDIFF(YEAR, dtNasc, now()) AS idade FROM usuario;
     `;
 
     return database.executar(instrucaoSql);
@@ -72,11 +65,22 @@ function capturarDispositivo() {
     return database.executar(instrucaoSql);
 }
 
+// LINK
+function capturarLink() {
+    var instrucaoSql = `
+    SELECT nome, COUNT(idSite) AS 'qtd' FROM siteFooter
+	GROUP BY nome;
+    `;
+
+    return database.executar(instrucaoSql);
+}
+
 module.exports = {
     capturarEscolhaFinal,
     capturarPergunta1,
     capturarPergunta2,
     capturarPergunta3,
     capturarIdade,
-    capturarDispositivo
+    capturarDispositivo,
+    capturarLink
 }

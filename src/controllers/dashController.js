@@ -36,11 +36,19 @@ function capturarDispositivo(req, res) {
     })
 }
 
+// LINKS
+function capturarLink(req, res) {
+    dashModel.capturarLink().then((resultado) => {
+        res.status(200).json(resultado);
+    })
+}
+
 module.exports = {
     capturarEscolhaFinal,
     capturarPergunta1,
     capturarPergunta2,
     capturarPergunta3,
     capturarIdade,
-    capturarDispositivo
+    capturarDispositivo,
+    capturarLink
 }

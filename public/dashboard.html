@@ -186,27 +186,12 @@
         }
     }
 
-    // CLICKES
-    var clickPS = 0;
-    var clickHBO = 0;
-
-    function link(resposta) {
-        if (resposta == 'PS') {
-            clickPS++;
-        }
-
-        if (resposta == 'HBO') {
-            clickHBO++;
-        }
-
-        document.getElementById(span_ps) = `Quantidade de acessos no site oficial da Playstation: ${clickPS}`;
-    }
-
     function inicializar() {
         dadosEscolhaFinal()
         dadosPergunta1()
         dadosPergunta2()
         dadosPergunta3()
+        idade()
         dispositivos()
     }
 
@@ -220,6 +205,44 @@
             })
 
         dadosEscolhaFinal()
+    }
+
+    function total() {
+        fetch(`/dash/capturarTotal`, {
+            method: "GET",
+        })
+            .then(function (resposta) {
+                resposta.json().then((dadosTotal) => {
+                    
+                })
+            })
+    }
+
+    var clickPS = 0;
+    var clickHBO = 0;
+
+    function link(site) {
+        fetch(`/dash/capturarLink`, {
+            method: "POST",
+        })
+            .then(function (resposta) {
+                resposta.json().then((dadosLink) => {
+
+                    if (dadosLink.nome == 'PS') {
+                        clickPS += dadosLink.qtd;
+                    }
+
+                    if (dadosLink.nome == 'HBO') {
+                        clickHBO += dadosLink.qtd;
+                    }
+
+                    span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: ${clickPS}`;
+                    span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: ${clickHBO}`;
+                })
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO ${resposta}`);
+            })
     }
 
     function dadosEscolhaFinal() {
@@ -452,41 +475,42 @@
 
     // GRÁFICO PIZZA
     function idade() {
-        fetch(`dash/capturarIdade`, {
+        fetch(`/dash/capturarIdade`, {
             method: "GET",
         })
             .then(function (resposta) {
                 resposta.json().then((dadosIdade) => {
                     const dados2 = document.getElementById('myChart2');
-
-                    var qtd18 = 0;
-                    var qtd22 = 0;
-                    var qtd26 = 0;
+                    console.log(resposta)
+                    
+                    var qtd18_21 = 0;
+                    var qtd22_25 = 0;
+                    var qtd26_29 = 0;
                     var qtd30 = 0;
 
                     for (var i = 0; i < dadosIdade.length; i++) {
-                        var element = dadosIdade[i];
+                        var element = dadosIdade[i].idade;
 
-                        if (idade >= 18 && idade <= 21) {
-                            qtd18 += element.faixaEtaria;
+                        if (element >= 18 && element <= 21) {
+                            qtd18_21++;
                         }
                         
-                        if (idade >= 22 && idade <= 25) {
-                            qtd22 += element.faixaEtaria;
+                        if (element >= 22 && element <= 25) {
+                            qtd22_25++;
                         } 
                         
-                        if (idade >= 26 && idade <= 29) {
-                            qtd26 += element.faixaEtaria;
+                        if (element >= 26 && element <= 29) {
+                            qtd26_29++;
                         } 
                         
-                        if (idade >= 30) {
-                            qtd30 += element.faixaEtaria;
+                        if (element >= 30) {
+                            qtd30++;
                         }
                     }
 
-                    console.log(`Quantidade entre 18-21 anos: ${qtd18}`);
-                    console.log(`Quantidade entre 22-25 anos: ${qtd22}`);
-                    console.log(`Quantidade entre 26-29 anos: ${qtd26}`);
+                    console.log(`Quantidade entre 18-21 anos: ${qtd18_21}`);
+                    console.log(`Quantidade entre 22-25 anos: ${qtd22_25}`);
+                    console.log(`Quantidade entre 26-29 anos: ${qtd26_29}`);
                     console.log(`Quantidade com 30+ anos: ${qtd30}`);
 
                     new Chart(dados2, {
@@ -494,7 +518,7 @@
                         data: {
                             labels: ['18 a 21', '22 a 25', '26 a 29', '30+'],
                             datasets: [{
-                                data: [qtd18, qtd22, qtd26, qtd30],
+                                data: [qtd18_21, qtd22_25, qtd26_29, qtd30],
                                 backgroundColor: [
                                     'rgb(89, 192, 75)',
                                     'rgb(195, 58, 58)',

@@ -27,4 +27,9 @@ router.get("/capturarDispositivo", function (req, res) {
     dashController.capturarDispositivo(req, res);
 })
 
+// LINKS
+router.get("/capturarLink", function (req, res) {
+    dashController.capturarLink(req, res);
+})
+
 module.exports = router;
