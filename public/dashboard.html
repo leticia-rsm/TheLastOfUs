@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="inicializar()">
+<body onload="inicializar(); link(); capturarTotal()">
     <div class="header">
         <div class="container">
             <div class="logo">
@@ -72,10 +72,11 @@
                 <span id="span_indicador"></span>
             </div>
             <div class="pergunta">
-                <span id="span_pergunta">Pesquisa de Comportamento</span>
+                <span id="span_pergunta">Responder pesquisa de Comportamento...</span>
             </div>
             <div class="botao" id="div_alternativa">
-                <button style='display: block;' onclick="pegarResposta('A')" id="id_buttonA"> Responder Pesquisa</button>
+                <button style='display: block;' onclick="iniciarPesquisa()" id="id_buttonR">Começar</button>
+                <button style='display: none;' onclick="pegarResposta('A')" id="id_buttonA"></button>
                 <button style='display: none;' onclick="pegarResposta('B')" id="id_buttonB"></button>
                 <button style='display: none;' onclick="pegarResposta('C')" id="id_buttonC"></button>
                 <button style='display: none;' onclick="pegarResposta('D')" id="id_buttonD"></button>
@@ -144,18 +145,21 @@
     // VOTOS
 
     // QUESTIONARIO
-    var click = 1;
+    var click = 0;
 
     var lista_resposta = [];
     var lista_pergunta = [];
 
-    function escolha(alternativa) {
-        lista_resposta.push(alternativa);
+    function escolha(voto) {
+        lista_resposta.push(voto);
         lista_pergunta.push(1);
     }
 
-    function pegarResposta(alternativa) {
-        if (click == 1) {
+    function iniciarPesquisa() {
+        document.getElementById('id_buttonR').style.display = 'none';
+
+        if (click == 0) {
+            console.log("AQUI")
             span_indicador.innerHTML = `1/3`;
             span_pergunta.innerHTML = `Por que você escolheu essa opção?`;
             id_buttonA.innerHTML = `A. Para quebrar o ciclo de vingança e trazer paz para a Ellie.`;
@@ -167,41 +171,49 @@
             document.getElementById('id_buttonB').style = 'block'
             document.getElementById('id_buttonC').style = 'block'
             document.getElementById('id_buttonD').style = 'block'
-
-            click++;
-
-            lista_resposta.push(alternativa);
-            lista_pergunta.push(2);
-        } else if (click == 2) {
-            span_indicador.innerHTML = `2/3`;
-            span_pergunta.innerHTML = `Como você se sentiu ao fazer essa escolha?`;
-            id_buttonA.innerHTML = `A. Aliviado(a), como se tivesse feito a coisa certa.`;
-            id_buttonB.innerHTML = `B. Triste, mas achei que era necessário.`;
-            id_buttonC.innerHTML = `C. Com raiva e desejo de vingança.`;
-            id_buttonD.innerHTML = `D. Conflituoso(a), pois não foi uma decisão fácil.`;
-
-            click++;
-
-            lista_resposta.push(alternativa);
-            lista_pergunta.push(3);
-        } else if (click == 3) {
-            span_indicador.innerHTML = `3/3`;
-            span_pergunta.innerHTML = `Qual você acha que seria o impacto dessa escolha no futuro dos personagens?`;
-            id_buttonA.innerHTML = `A. Traria paz e encerraria o ciclo de vingança.`;
-            id_buttonB.innerHTML = `B. Provocaria mais conflitos e possíveis retaliações.`;
-            id_buttonC.innerHTML = `C. Permitiria à Ellie seguir em frente com menos peso emocional.`;
-            id_buttonD.innerHTML = `D. Marcaria a Ellie com um novo trauma.`;
-
-            click++;
-
-            lista_resposta.push(alternativa);
-            lista_pergunta.push(4);
-        } else {
-            div_alternativa.style.display = 'none';
-            div_indicador.style.display = 'none';
-            span_pergunta.innerHTML = `Sua resposta foi registrada...`;
         }
     }
+
+    function pegarResposta(alternativa) {
+
+            if (click == 0) {    
+                lista_resposta.push(alternativa);
+                lista_pergunta.push(2);
+                
+                span_indicador.innerHTML = `2/3`;
+                span_pergunta.innerHTML = `Como você se sentiu ao fazer essa escolha?`;
+                id_buttonA.innerHTML = `A. Aliviado(a), como se tivesse feito a coisa certa.`;
+                id_buttonB.innerHTML = `B. Triste, mas achei que era necessário.`;
+                id_buttonC.innerHTML = `C. Com raiva e desejo de vingança.`;
+                id_buttonD.innerHTML = `D. Conflituoso(a), pois não foi uma decisão fácil.`;
+
+                click++;
+
+            } else if (click == 1) {
+                lista_resposta.push(alternativa);
+                lista_pergunta.push(3);
+                span_indicador.innerHTML = `3/3`;
+                span_pergunta.innerHTML = `Qual você acha que seria o impacto dessa escolha no futuro dos personagens?`;
+                id_buttonA.innerHTML = `A. Traria paz e encerraria o ciclo de vingança.`;
+                id_buttonB.innerHTML = `B. Provocaria mais conflitos e possíveis retaliações.`;
+                id_buttonC.innerHTML = `C. Permitiria à Ellie seguir em frente com menos peso emocional.`;
+                id_buttonD.innerHTML = `D. Marcaria a Ellie com um novo trauma.`;
+
+                click++;
+                
+            } else if (click == 2) {
+                
+                lista_resposta.push(alternativa);
+                lista_pergunta.push(4);
+                div_alternativa.style.display = 'none';
+                div_indicador.style.display = 'none';
+                span_pergunta.innerHTML = `Sua resposta foi registrada...`;
+
+                click++;
+            }
+            
+        }
+    
 
     function inicializar() {
         dadosEscolhaFinal()
@@ -214,14 +226,14 @@
 
     // Logica FECTH INSERIR
     function inserirAlternativa() {
-
+        console.log("INSERINDO NO BANCO")
         for (var i = 0; i < lista_resposta.length; i++) {
             var resposta = lista_resposta[i];
             var pergunta = lista_pergunta[i];
 
 
-            fetch(`/dash/inserirEscolhaFinal`, {
-                method: "GET",
+            fetch(`/dash/inserirAlternativa`, {
+                method: "POST",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -247,7 +259,8 @@
         })
             .then(function (resposta) {
                 resposta.json().then((dadosTotal) => {
-                    span_mensagem.innerHTML = `Total de votos: ${dadosTotal.qtd}`;
+                    console.log(dadosTotal + "DADOS AQUI")
+                    span_mensagem.innerHTML = `Total de votos: ${dadosTotal[0].qtd}`;
                 })
             })
             .catch(function (resposta) {
@@ -257,19 +270,21 @@
 
     function link() {
         fetch(`/dash/capturarLink`, {
-            method: "POST",
+            method: "GET",
         })
             .then(function (resposta) {
                 resposta.json().then((dadosLink) => {
+                    console.log(dadosLink)
 
-                    span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: ${dadosLink}`;
-                    span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: ${dadosLink}`;
+                    span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: ${dadosLink[0].qtd}`;
+                    span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: ${dadosLink[1].qtd}`;
                 })
             })
             .catch(function (resposta) {
                 console.log(`#ERRO ${resposta}`);
             })
     }
+
 
     function dadosEscolhaFinal() {
         fetch(`/dash/capturarEscolhaFinal`, {

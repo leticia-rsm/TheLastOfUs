@@ -78,7 +78,7 @@ function capturarLink() {
 // TOTAL
 function capturarTotal() {
     var instrucaoSql = `
-    SELECT COUNT(idAlternativa) 'qtd'
+    SELECT COUNT(idAlternativa) AS 'qtd'
 	FROM alternativa JOIN resposta ON fkResposta = idResposta 
     WHERE fkPesquisa = 1
     GROUP BY fkPesquisa;
@@ -95,6 +95,12 @@ function inserirAlternativa(r_alternativa, fkPesquisa) {
     return database.executar(instrucaoSql);
 }
 
+function inserirSite(r_alternativa, fkPesquisa) {
+    var instrucaoSql = `
+        INSERT INTO siteFooter (nome) VALUES ('${site}');
+    `;
+    return database.executar(instrucaoSql);
+}
 
 module.exports = {
     capturarEscolhaFinal,
