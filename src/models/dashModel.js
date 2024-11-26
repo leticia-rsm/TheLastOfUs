@@ -87,8 +87,6 @@ function capturarTotal() {
     return database.executar(instrucaoSql);
 }
 
-
-
 // INSERTS
 function inserirAlternativa(r_alternativa, fkPesquisa) {
     var instrucaoSql = `

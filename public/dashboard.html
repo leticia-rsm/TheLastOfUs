@@ -72,13 +72,13 @@
                 <span id="span_indicador"></span>
             </div>
             <div class="pergunta">
-                <span id="span_pergunta"></span>
+                <span id="span_pergunta">Pesquisa de Comportamento</span>
             </div>
             <div class="botao" id="div_alternativa">
-                <button onclick="pegarResposta('A')" id="id_buttonA">Responder Questionário</button>
-                <button onclick="pegarResposta('B')" id="id_buttonB"></button>
-                <button onclick="pegarResposta('C')" id="id_buttonC"></button>
-                <button onclick="pegarResposta('D')" id="id_buttonD"></button>
+                <button style='display: block;' onclick="pegarResposta('A')" id="id_buttonA"> Responder Pesquisa</button>
+                <button style='display: none;' onclick="pegarResposta('B')" id="id_buttonB"></button>
+                <button style='display: none;' onclick="pegarResposta('C')" id="id_buttonC"></button>
+                <button style='display: none;' onclick="pegarResposta('D')" id="id_buttonD"></button>
             </div>
         </div>
     </div>
@@ -163,6 +163,11 @@
             id_buttonC.innerHTML = `C. Porque senti empatia pela Abby e entendi suas razões.`;
             id_buttonD.innerHTML = `D. Outra razão...`;
 
+            document.getElementById('id_buttonA').style = 'block'
+            document.getElementById('id_buttonB').style = 'block'
+            document.getElementById('id_buttonC').style = 'block'
+            document.getElementById('id_buttonD').style = 'block'
+
             click++;
 
             lista_resposta.push(alternativa);
@@ -213,10 +218,10 @@
         for (var i = 0; i < lista_resposta.length; i++) {
             var resposta = lista_resposta[i];
             var pergunta = lista_pergunta[i];
-            
-            
+
+
             fetch(`/dash/inserirEscolhaFinal`, {
-                method: "POST",
+                method: "GET",
                 headers: {
                     "Content-Type": "application/json",
                 },
@@ -250,26 +255,15 @@
             })
     }
 
-    var clickPS = 0;
-    var clickHBO = 0;
-
-    function link(site) {
+    function link() {
         fetch(`/dash/capturarLink`, {
             method: "POST",
         })
             .then(function (resposta) {
                 resposta.json().then((dadosLink) => {
 
-                    if (site == 'PS') {
-                        clickPS += dadosLink.qtd;
-                    }
-
-                    if (site == 'HBO') {
-                        clickHBO += dadosLink.qtd;
-                    }
-
-                    span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: ${clickPS}`;
-                    span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: ${clickHBO}`;
+                    span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: ${dadosLink}`;
+                    span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: ${dadosLink}`;
                 })
             })
             .catch(function (resposta) {
