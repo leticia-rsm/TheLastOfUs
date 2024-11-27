@@ -3,24 +3,30 @@ var dashModel = require("../models/dashModel");
 function capturarEscolhaFinal(req, res) {
     dashModel.capturarEscolhaFinal().then((resultado) => {
         res.status(200).json(resultado);
+        console.log('passou aqui no capturarEscolhaFinal')
     })
 }
 
 function capturarPergunta1(req, res) {
-    dashModel.capturarPergunta1().then((resultado) => {
+    dashModel.capturarPergunta1()
+    .then(
+        (resultado) => {
         res.status(200).json(resultado);
+        console.log('passou aqui no capturarPergunta1 ' + resultado[1].qtd)
     })
 }
 
 function capturarPergunta2(req, res) {
     dashModel.capturarPergunta2().then((resultado) => {
         res.status(200).json(resultado);
+        console.log('passou aqui no capturarPergunta2 ' + resultado[1].qtd)
     })
 }
 
 function capturarPergunta3(req, res) {
     dashModel.capturarPergunta3().then((resultado) => {
         res.status(200).json(resultado);
+        console.log('passou aqui no capturarPergunta3 ' + resultado[1].qtd)
     })
 }
 
@@ -55,10 +61,33 @@ function capturarTotal(req, res) {
 function inserirAlternativa(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
     var fkUsuario = req.body.fkUsuarioServer;
-    var fkResposta = req.body.fkRespostaServer;
+    var fkAlternativa = req.body.fkRespostaServer;
 
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    dashModel.inserirAlternativa(fkUsuario, fkResposta)
+    dashModel.inserirAlternativa(fkUsuario, fkAlternativa)
+        .then(            
+            function (resultado) {
+                console.log("INSERT INTO");
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
+
+function inserirSite(req, res) {
+    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var nome = req.body.nomeServer;
+
+    // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+    dashModel.inserirSite(nome)
         .then(            
             function (resultado) {
                 console.log("INSERT INTO");
@@ -86,5 +115,6 @@ module.exports = {
     capturarDispositivo,
     capturarLink,
     capturarTotal,
-    inserirAlternativa
+    inserirAlternativa,
+    inserirSite
 }

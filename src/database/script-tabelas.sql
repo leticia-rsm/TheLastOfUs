@@ -87,7 +87,7 @@ SELECT * FROM resposta JOIN alternativa ON fkResposta = idResposta;
 
 -- TOTAL DE RESPOSTAS EM CADA PERGUNTA
 SELECT COUNT(idAlternativa) 'qtd'
-	FROM alternativa JOIN resposta ON fkResposta = idResposta 
+	FROM alternativa JOIN resposta ON fkAlternativa = idAlternativa 
     WHERE fkPesquisa = 1
     GROUP BY fkPesquisa;
     

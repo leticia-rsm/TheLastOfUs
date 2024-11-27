@@ -13,7 +13,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 
-<body onload="inicializar(); link(); capturarTotal()">
+<body onload="inicializar();">
     <div class="header">
         <div class="container">
             <div class="logo">
@@ -141,16 +141,32 @@
     // PUXANDO O ID DO USUARIO
     var idUsuario = sessionStorage.ID_USUARIO;
 
-    // CONTABILIDADE DE VOTOS
-    var votoA = 0;
-    var votoB = 0;
-
-    // VOTOS
-
     // QUESTIONARIO
     var click = 0;
 
     var lista_resposta = [];
+    var clickSite = [];
+
+    function inicializar() {
+        dadosEscolhaFinal()
+        dadosPergunta1()
+        dadosPergunta2()
+        dadosPergunta3()
+        idade()
+        dispositivos()
+        capturarLink()
+        capturarTotal()
+        link()
+    }
+
+    function link(nome) {
+        if (nome == 'HBO') {
+            clickSite.push(nome)
+        } else if (nome == 'PS') {
+            clickSite.push(nome)
+        }
+
+    }
 
     function escolha(voto) {
 
@@ -257,24 +273,12 @@
 
             inserirAlternativa()
         }
-
-    }
-
-
-    function inicializar() {
-        dadosEscolhaFinal()
-        dadosPergunta1()
-        dadosPergunta2()
-        dadosPergunta3()
-        idade()
-        dispositivos()
     }
 
     // Logica FECTH INSERIR
     function inserirAlternativa() {
         for (var i = 0; i < lista_resposta.length; i++) {
             var resposta = lista_resposta[i];
-
 
             fetch(`/dash/inserirAlternativa`, {
                 method: "POST",
@@ -306,6 +310,38 @@
         }
     }
 
+
+    function inserirSite() {
+        for (var i = 0; i < clickSite.length; i++) {
+            var element = clickSite[i];
+
+            fetch(`/dash/inserirSite`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                    // crie um atributo que recebe o valor recuperado aqui
+                    // Agora vá para o arquivo routes/usuario.js
+                    siteServer: nomeSite,
+                }),
+            })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na requisição')
+                    }
+                    return response.json();
+                })
+
+                .then(dadoSite => {
+
+                    capturarSite()
+
+                    clickSite = [];
+                })
+        }
+    }
+
     function capturarTotal() {
         fetch(`/dash/capturarTotal`, {
             method: "GET",
@@ -320,7 +356,7 @@
             })
     }
 
-    function link() {
+    function capturarLink() {
         fetch(`/dash/capturarLink`, {
             method: "GET",
         })
@@ -330,10 +366,11 @@
                     if (dadosLink.length == 0) {
                         span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: 0`;
                         span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: 0`;
-                    } else { 
+                    } else {
                         span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: ${dadosLink[0].qtd}`;
                         span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: ${dadosLink[1].qtd}`;
                     }
+                    inserirSite()
                 })
             })
             .catch(function (resposta) {
@@ -368,7 +405,7 @@
                             data: {
                                 labels: ['Salvar', 'Matar'],
                                 datasets: [{
-                                    data: [dadosDashEscolha[1].qtd, dadosDashEscolha[0].qtd],
+                                    data: [dadosDashEscolha[0].qtd, dadosDashEscolha[1].qtd],
                                     backgroundColor: [
                                         'rgb(89, 192, 75)',
                                         'rgb(195, 58, 58)'
@@ -387,6 +424,10 @@
     }
 
 
+    var lista_Pergunta1 = [];
+    var lista_Pergunta2 = [];
+    var lista_Pergunta3 = [];
+
     function dadosPergunta1() {
         fetch(`/dash/capturarPergunta1`, {
             method: "GET",
@@ -399,32 +440,35 @@
                         myChart2.destroy();
                     }
 
-                    var qtdA = 0;
-                    var qtdB = 0;
-                    var qtdC = 0;
-                    var qtdD = 0;
+                    // var qtdA = 0;
+                    // var qtdB = 0;
+                    // var qtdC = 0;
+                    // var qtdD = 0;
 
                     for (var i = 0; i < dadosDashPergunta1.length; i++) {
-                        var dadoDaVez = dadosDashPergunta1[i];
+                        var dadoDaVez = dadosDashPergunta1[i].qtd;
 
+                        lista_Pergunta1.push(dadoDaVez);
+
+                        /*
                         if (dadoDaVez.r_alternativa == "A") {
-                            qtdA = dadoDaVez.qtd
+                            qtdA = dadoDaVez
                         }
 
                         if (dadoDaVez.r_alternativa == "B") {
-                            qtdA = dadoDaVez.qtd
+                            qtdA = dadoDaVez
 
                         }
 
                         if (dadoDaVez.r_alternativa == "C") {
-                            qtdA = dadoDaVez.qtd
+                            qtdA = dadoDaVez
 
                         }
 
                         if (dadoDaVez.r_alternativa == "D") {
-                            qtdA = dadoDaVez.qtd
+                            qtdA = dadoDaVez
 
-                        }
+                        }*/
                     }
 
                     myChart2 = new Chart(dadosP1, {
@@ -433,7 +477,7 @@
                             labels: ['Quebrar o ciclo de vingança', 'Vingar o Joel', 'Entende as razões da Abby', 'Outro'],
                             datasets: [{
                                 label: 'Por que você escolheu essa opção?',
-                                data: [qtdA, qtdB, qtdC, qtdD],
+                                data: lista_Pergunta1,
                                 backgroundColor: [
                                     'rgb(255, 147, 23)',
                                     'rgb(255, 147, 23)',
@@ -470,29 +514,31 @@
                         myChart3.destroy();
                     }
 
-                    var qtdA = 0;
-                    var qtdB = 0;
-                    var qtdC = 0;
-                    var qtdD = 0;
+                    // var qtdA = 0;
+                    // var qtdB = 0;
+                    // var qtdC = 0;
+                    // var qtdD = 0;
 
                     for (var i = 0; i < dadosPergunta2.length; i++) {
-                        var element = dadosPergunta2[i];
+                        var element = dadosPergunta2[i].qtd;
 
-                        if (element.r_alternativa == "A") {
-                            qtdA = element.qtd;
-                        }
+                        lista_Pergunta2.push(element)
 
-                        if (element.r_alternativa == "B") {
-                            qtdB = element.qtd;
-                        }
+                        // if (element.r_alternativa == "A") {
+                        //     qtdA = element;
+                        // }
 
-                        if (element.r_alternativa == "C") {
-                            qtdC = element.qtd;
-                        }
+                        // if (element.r_alternativa == "B") {
+                        //     qtdB = element;
+                        // }
 
-                        if (element.r_alternativa == "D") {
-                            qtdD = element.qtd;
-                        }
+                        // if (element.r_alternativa == "C") {
+                        //     qtdC = element;
+                        // }
+
+                        // if (element.r_alternativa == "D") {
+                        //     qtdD = element;
+                        // }
                     }
 
                     myChart3 = new Chart(dadosP2, {
@@ -501,7 +547,7 @@
                             labels: ['Aliviado(a)', 'Triste', 'Com raiva', 'Conflituoso(a)'],
                             datasets: [{
                                 label: 'Como você se sentiu ao fazer essa escolha?',
-                                data: [qtdA, qtdB, qtdC, qtdD],
+                                data: lista_Pergunta2,
                                 backgroundColor: [
                                     'rgb(222, 212, 82)',
                                     'rgb(222, 212, 82)',
@@ -539,29 +585,31 @@
                         myChart4.destroy();
                     }
 
-                    var qtdA = 0;
-                    var qtdB = 0;
-                    var qtdC = 0;
-                    var qtdD = 0;
+                    // var qtdA = 0;
+                    // var qtdB = 0;
+                    // var qtdC = 0;
+                    // var qtdD = 0;
 
                     for (var i = 0; i < dadosPergunta3.length; i++) {
-                        var element = dadosPergunta3[i];
+                        var element = dadosPergunta3[i].qtd;
 
-                        if (element.r_alternativa == "A") {
-                            qtdA = element.qtd;
-                        }
+                        lista_Pergunta3.push(element)
 
-                        if (element.r_alternativa == "B") {
-                            qtdB = element.qtd;
-                        }
+                        // if (element.r_alternativa == "A") {
+                        //     qtdA = element;
+                        // }
 
-                        if (element.r_alternativa == "C") {
-                            qtdC = element.qtd;
-                        }
+                        // if (element.r_alternativa == "B") {
+                        //     qtdB = element;
+                        // }
 
-                        if (element.r_alternativa == "D") {
-                            qtdD = element.qtd;
-                        }
+                        // if (element.r_alternativa == "C") {
+                        //     qtdC = element;
+                        // }
+
+                        // if (element.r_alternativa == "D") {
+                        //     qtdD = element;
+                        // }
                     }
 
                     myChart4 = new Chart(dadosP3, {
@@ -570,7 +618,7 @@
                             labels: ['Traria paz', 'Mais conflitos', 'Menor peso', 'Novo trauma'],
                             datasets: [{
                                 label: 'Qual você acha que seria o impacto dessa escolha no futuro dos personagens?',
-                                data: [qtdA, qtdB, qtdC, qtdD],
+                                data: lista_Pergunta3,
                                 backgroundColor: [
                                     'rgb(75, 192, 192)',
                                     'rgb(75, 192, 192)',

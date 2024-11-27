@@ -46,4 +46,9 @@ router.post("/inserirAlternativa", function (req, res) {
     dashController.inserirAlternativa(req, res);
 })
 
+// SITE
+router.post("/inserirSite", function (req, res) {
+    dashController.inserirSite(req, res);
+})
+
 module.exports = router;

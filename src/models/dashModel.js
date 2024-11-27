@@ -14,7 +14,7 @@ function capturarEscolhaFinal() {
 
 function capturarPergunta1() {
     var instrucaoSql = `
-    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) FROM usuario JOIN resposta 
+    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) AS 'qtd' FROM usuario JOIN resposta 
 	ON usuario.idUsuario = resposta.fkUsuario JOIN alternativa 
     ON alternativa.idAlternativa = resposta.fkAlternativa
     WHERE fkPesquisa = 2
@@ -26,7 +26,7 @@ function capturarPergunta1() {
 
 function capturarPergunta2() {
     var instrucaoSql = `
-    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) FROM usuario JOIN resposta 
+    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) AS 'qtd' FROM usuario JOIN resposta 
 	ON usuario.idUsuario = resposta.fkUsuario JOIN alternativa 
     ON alternativa.idAlternativa = resposta.fkAlternativa
     WHERE fkPesquisa = 3
@@ -38,7 +38,7 @@ function capturarPergunta2() {
 
 function capturarPergunta3() {
     var instrucaoSql = `
-    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) FROM usuario JOIN resposta 
+    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) AS 'qtd'  FROM usuario JOIN resposta 
 	ON usuario.idUsuario = resposta.fkUsuario JOIN alternativa 
     ON alternativa.idAlternativa = resposta.fkAlternativa
     WHERE fkPesquisa = 4
@@ -96,9 +96,9 @@ function inserirAlternativa(fkUsuario, fkAlternativa) {
     return database.executar(instrucaoSql);
 }
 
-function inserirSite(r_alternativa, fkPesquisa) {
+function inserirSite(nome) {
     var instrucaoSql = `
-        INSERT INTO siteFooter (nome) VALUES ('${site}');
+        INSERT INTO siteFooter (nome) VALUES ('${nome}');
     `;
     return database.executar(instrucaoSql);
 }
@@ -112,5 +112,6 @@ module.exports = {
     capturarDispositivo,
     capturarLink,
     capturarTotal,
-    inserirAlternativa
+    inserirAlternativa,
+    inserirSite
 }
