@@ -54,13 +54,14 @@ function capturarTotal(req, res) {
 // INSERT INTO
 function inserirAlternativa(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var r_alternativa = req.body.r_alternativaServer;
-    var fkPesquisa = req.body.fkPesquisaServer;
+    var fkUsuario = req.body.fkUsuarioServer;
+    var fkResposta = req.body.fkRespostaServer;
 
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-    usuarioModel.inserirAlternativa(r_alternativa, fkPesquisa)
-        .then(
+    dashModel.inserirAlternativa(fkUsuario, fkResposta)
+        .then(            
             function (resultado) {
+                console.log("INSERT INTO");
                 res.json(resultado);
             }
         ).catch(

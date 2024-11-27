@@ -43,8 +43,6 @@ router.get("/capturarTotal", function (req, res) {
 
 // DASHBOARD
 router.post("/inserirAlternativa", function (req, res) {
-    
-    console.log("Aqui")
     dashController.inserirAlternativa(req, res);
 })
 

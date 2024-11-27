@@ -2,11 +2,11 @@ var database = require("../database/config");
 
 function capturarEscolhaFinal() {
     var instrucaoSql = `
-    SELECT resposta.r_alternativa, COUNT(alternativa.fkResposta) AS 'qtd' FROM usuario JOIN alternativa 
-	ON usuario.idUsuario = alternativa.fkUsuario JOIN resposta 
-    ON resposta.idResposta = alternativa.fkResposta
+    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) AS 'qtd' FROM usuario JOIN resposta 
+	ON usuario.idUsuario = resposta.fkUsuario JOIN alternativa 
+    ON alternativa.idAlternativa = resposta.fkAlternativa
     WHERE fkPesquisa = 1
-	GROUP BY resposta.r_alternativa;
+	GROUP BY alternativa.caractere;
     `;
 
     return database.executar(instrucaoSql);
@@ -14,11 +14,11 @@ function capturarEscolhaFinal() {
 
 function capturarPergunta1() {
     var instrucaoSql = `
-    SELECT resposta.r_alternativa, COUNT(alternativa.fkResposta) AS 'qtd' FROM usuario JOIN alternativa 
-	ON usuario.idUsuario = alternativa.fkUsuario JOIN resposta 
-    ON resposta.idResposta = alternativa.fkResposta
+    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) FROM usuario JOIN resposta 
+	ON usuario.idUsuario = resposta.fkUsuario JOIN alternativa 
+    ON alternativa.idAlternativa = resposta.fkAlternativa
     WHERE fkPesquisa = 2
-	GROUP BY resposta.r_alternativa;
+	GROUP BY alternativa.caractere;
     `;
 
     return database.executar(instrucaoSql);
@@ -26,11 +26,11 @@ function capturarPergunta1() {
 
 function capturarPergunta2() {
     var instrucaoSql = `
-    SELECT resposta.r_alternativa, COUNT(alternativa.fkResposta) AS 'qtd' FROM usuario JOIN alternativa 
-	ON usuario.idUsuario = alternativa.fkUsuario JOIN resposta 
-    ON resposta.idResposta = alternativa.fkResposta
+    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) FROM usuario JOIN resposta 
+	ON usuario.idUsuario = resposta.fkUsuario JOIN alternativa 
+    ON alternativa.idAlternativa = resposta.fkAlternativa
     WHERE fkPesquisa = 3
-	GROUP BY resposta.r_alternativa;
+	GROUP BY alternativa.caractere;
     `;
 
     return database.executar(instrucaoSql);
@@ -38,11 +38,11 @@ function capturarPergunta2() {
 
 function capturarPergunta3() {
     var instrucaoSql = `
-    SELECT resposta.r_alternativa, COUNT(alternativa.fkResposta) AS 'qtd' FROM usuario JOIN alternativa 
-	ON usuario.idUsuario = alternativa.fkUsuario JOIN resposta 
-    ON resposta.idResposta = alternativa.fkResposta
+    SELECT alternativa.caractere, COUNT(resposta.fkAlternativa) FROM usuario JOIN resposta 
+	ON usuario.idUsuario = resposta.fkUsuario JOIN alternativa 
+    ON alternativa.idAlternativa = resposta.fkAlternativa
     WHERE fkPesquisa = 4
-	GROUP BY resposta.r_alternativa;
+	GROUP BY alternativa.caractere;
     `;
 
     return database.executar(instrucaoSql);
@@ -78,8 +78,8 @@ function capturarLink() {
 // TOTAL
 function capturarTotal() {
     var instrucaoSql = `
-    SELECT COUNT(idAlternativa) AS 'qtd'
-	FROM alternativa JOIN resposta ON fkResposta = idResposta 
+    SELECT COUNT(fkAlternativa) 'qtd'
+	FROM resposta JOIN alternativa ON fkAlternativa = idAlternativa
     WHERE fkPesquisa = 1
     GROUP BY fkPesquisa;
     `;
@@ -88,9 +88,10 @@ function capturarTotal() {
 }
 
 // INSERTS
-function inserirAlternativa(r_alternativa, fkPesquisa) {
+function inserirAlternativa(fkUsuario, fkAlternativa) {
+    console.log("INSERT INTO");
     var instrucaoSql = `
-        INSERT INTO resposta (r_alternativa, fkPesquisa) VALUES ('${r_alternativa}', '${fkPesquisa}');
+        INSERT INTO resposta (fkUsuario, fkAlternativa) VALUES ('${fkUsuario}', '${fkAlternativa}');
     `;
     return database.executar(instrucaoSql);
 }

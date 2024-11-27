@@ -138,6 +138,9 @@
         span_usuario.innerHTML = sessionStorage.NOME_USUARIO;
     }
 
+    // PUXANDO O ID DO USUARIO
+    var idUsuario = sessionStorage.ID_USUARIO;
+
     // CONTABILIDADE DE VOTOS
     var votoA = 0;
     var votoB = 0;
@@ -148,18 +151,23 @@
     var click = 0;
 
     var lista_resposta = [];
-    var lista_pergunta = [];
 
     function escolha(voto) {
-        lista_resposta.push(voto);
-        lista_pergunta.push(1);
+
+        if (voto == 'A') {
+            lista_resposta.push(1);
+
+        } else if (voto == 'B') {
+            lista_resposta.push(2);
+
+        }
+        inserirAlternativa()
     }
 
     function iniciarPesquisa() {
         document.getElementById('id_buttonR').style.display = 'none';
 
         if (click == 0) {
-            console.log("AQUI")
             span_indicador.innerHTML = `1/3`;
             span_pergunta.innerHTML = `Por que você escolheu essa opção?`;
             id_buttonA.innerHTML = `A. Para quebrar o ciclo de vingança e trazer paz para a Ellie.`;
@@ -176,44 +184,82 @@
 
     function pegarResposta(alternativa) {
 
-            if (click == 0) {    
-                lista_resposta.push(alternativa);
-                lista_pergunta.push(2);
-                
-                span_indicador.innerHTML = `2/3`;
-                span_pergunta.innerHTML = `Como você se sentiu ao fazer essa escolha?`;
-                id_buttonA.innerHTML = `A. Aliviado(a), como se tivesse feito a coisa certa.`;
-                id_buttonB.innerHTML = `B. Triste, mas achei que era necessário.`;
-                id_buttonC.innerHTML = `C. Com raiva e desejo de vingança.`;
-                id_buttonD.innerHTML = `D. Conflituoso(a), pois não foi uma decisão fácil.`;
+        if (click == 0) {
+            if (alternativa == 'A') {
+                lista_resposta.push(3);
 
-                click++;
+            } else if (alternativa == 'B') {
+                lista_resposta.push(4);
 
-            } else if (click == 1) {
-                lista_resposta.push(alternativa);
-                lista_pergunta.push(3);
-                span_indicador.innerHTML = `3/3`;
-                span_pergunta.innerHTML = `Qual você acha que seria o impacto dessa escolha no futuro dos personagens?`;
-                id_buttonA.innerHTML = `A. Traria paz e encerraria o ciclo de vingança.`;
-                id_buttonB.innerHTML = `B. Provocaria mais conflitos e possíveis retaliações.`;
-                id_buttonC.innerHTML = `C. Permitiria à Ellie seguir em frente com menos peso emocional.`;
-                id_buttonD.innerHTML = `D. Marcaria a Ellie com um novo trauma.`;
+            } else if (alternativa == 'C') {
+                lista_resposta.push(5);
 
-                click++;
-                
-            } else if (click == 2) {
-                
-                lista_resposta.push(alternativa);
-                lista_pergunta.push(4);
-                div_alternativa.style.display = 'none';
-                div_indicador.style.display = 'none';
-                span_pergunta.innerHTML = `Sua resposta foi registrada...`;
+            } else if (alternativa == 'D') {
+                lista_resposta.push(6);
 
-                click++;
             }
-            
+
+            span_indicador.innerHTML = `2/3`;
+            span_pergunta.innerHTML = `Como você se sentiu ao fazer essa escolha?`;
+            id_buttonA.innerHTML = `A. Aliviado(a), como se tivesse feito a coisa certa.`;
+            id_buttonB.innerHTML = `B. Triste, mas achei que era necessário.`;
+            id_buttonC.innerHTML = `C. Com raiva e desejo de vingança.`;
+            id_buttonD.innerHTML = `D. Conflituoso(a), pois não foi uma decisão fácil.`;
+
+            click++;
+
+        } else if (click == 1) {
+
+            if (alternativa == 'A') {
+                lista_resposta.push(7);
+
+            } else if (alternativa == 'B') {
+                lista_resposta.push(8);
+
+            } else if (alternativa == 'C') {
+                lista_resposta.push(9);
+
+            } else if (alternativa == 'D') {
+                lista_resposta.push(10);
+
+            }
+
+            span_indicador.innerHTML = `3/3`;
+            span_pergunta.innerHTML = `Qual você acha que seria o impacto dessa escolha no futuro dos personagens?`;
+            id_buttonA.innerHTML = `A. Traria paz e encerraria o ciclo de vingança.`;
+            id_buttonB.innerHTML = `B. Provocaria mais conflitos e possíveis retaliações.`;
+            id_buttonC.innerHTML = `C. Permitiria à Ellie seguir em frente com menos peso emocional.`;
+            id_buttonD.innerHTML = `D. Marcaria a Ellie com um novo trauma.`;
+
+            click++;
+
+        } else if (click == 2) {
+
+            if (alternativa == 'A') {
+                lista_resposta.push(11);
+
+            } else if (alternativa == 'B') {
+                lista_resposta.push(12);
+
+            } else if (alternativa == 'C') {
+                lista_resposta.push(13);
+
+            } else if (alternativa == 'D') {
+                lista_resposta.push(14);
+
+            }
+
+            div_alternativa.style.display = 'none';
+            div_indicador.style.display = 'none';
+            span_pergunta.innerHTML = `Sua resposta foi registrada...`;
+
+            click++;
+
+            inserirAlternativa()
         }
-    
+
+    }
+
 
     function inicializar() {
         dadosEscolhaFinal()
@@ -226,10 +272,8 @@
 
     // Logica FECTH INSERIR
     function inserirAlternativa() {
-        console.log("INSERINDO NO BANCO")
         for (var i = 0; i < lista_resposta.length; i++) {
             var resposta = lista_resposta[i];
-            var pergunta = lista_pergunta[i];
 
 
             fetch(`/dash/inserirAlternativa`, {
@@ -240,17 +284,26 @@
                 body: JSON.stringify({
                     // crie um atributo que recebe o valor recuperado aqui
                     // Agora vá para o arquivo routes/usuario.js
-                    r_alternativaServer: resposta,
-                    fkPesquisa: pergunta,
+                    fkUsuarioServer: idUsuario,
+                    fkRespostaServer: resposta,
                 }),
             })
-        }
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erro na requisição')
+                    }
+                    return response.json();
+                })
+                .then(dadoAlternativa => {
+                    capturarTotal()
+                    dadosEscolhaFinal()
+                    dadosPergunta1()
+                    dadosPergunta2()
+                    dadosPergunta3()
 
-        capturarTotal()
-        dadosEscolhaFinal()
-        dadosPergunta1()
-        dadosPergunta2()
-        dadosPergunta3()
+                    lista_resposta = [];
+                })
+        }
     }
 
     function capturarTotal() {
@@ -259,7 +312,6 @@
         })
             .then(function (resposta) {
                 resposta.json().then((dadosTotal) => {
-                    console.log(dadosTotal + "DADOS AQUI")
                     span_mensagem.innerHTML = `Total de votos: ${dadosTotal[0].qtd}`;
                 })
             })
@@ -275,9 +327,13 @@
             .then(function (resposta) {
                 resposta.json().then((dadosLink) => {
                     console.log(dadosLink)
-
-                    span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: ${dadosLink[0].qtd}`;
-                    span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: ${dadosLink[1].qtd}`;
+                    if (dadosLink.length == 0) {
+                        span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: 0`;
+                        span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: 0`;
+                    } else { 
+                        span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: ${dadosLink[0].qtd}`;
+                        span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: ${dadosLink[1].qtd}`;
+                    }
                 })
             })
             .catch(function (resposta) {
@@ -285,6 +341,10 @@
             })
     }
 
+    var myChart1;
+    var myChart2;
+    var myChart3;
+    var myChart4;
 
     function dadosEscolhaFinal() {
         fetch(`/dash/capturarEscolhaFinal`, {
@@ -294,22 +354,31 @@
                 resposta.json().then((dadosDashEscolha) => {
                     const dados1 = document.getElementById('myChart1');
 
-                    // GRÁFICO 1
-                    new Chart(dados1, {
-                        type: 'doughnut',
-                        data: {
-                            labels: ['Salvar', 'Matar'],
-                            datasets: [{
-                                data: [dadosDashEscolha[0].qtd, dadosDashEscolha[1].qtd],
-                                backgroundColor: [
-                                    'rgb(89, 192, 75)',
-                                    'rgb(195, 58, 58)'
-                                ],
-                                borderWidth: 0
-                            }]
-                        },
+                    if (myChart1) {
+                        myChart1.destroy();
                     }
-                    );
+
+                    console.log(dadosDashEscolha)
+                    if (dadosDashEscolha.length == 0) {
+                        dados1.innerHTML = `Sem dados`;
+                    } else {
+                        // GRÁFICO 1
+                        myChart1 = new Chart(dados1, {
+                            type: 'doughnut',
+                            data: {
+                                labels: ['Salvar', 'Matar'],
+                                datasets: [{
+                                    data: [dadosDashEscolha[1].qtd, dadosDashEscolha[0].qtd],
+                                    backgroundColor: [
+                                        'rgb(89, 192, 75)',
+                                        'rgb(195, 58, 58)'
+                                    ],
+                                    borderWidth: 0
+                                }]
+                            },
+                        }
+                        );
+                    }
                 })
             })
             .catch(function (resposta) {
@@ -317,13 +386,18 @@
             })
     }
 
+
     function dadosPergunta1() {
         fetch(`/dash/capturarPergunta1`, {
             method: "GET",
         })
             .then(function (resposta) {
                 resposta.json().then((dadosDashPergunta1) => {
-                    const dadosP1 = document.getElementById('Pergunta1');
+                    var dadosP1 = document.getElementById('Pergunta1');
+
+                    if (myChart2) {
+                        myChart2.destroy();
+                    }
 
                     var qtdA = 0;
                     var qtdB = 0;
@@ -353,7 +427,7 @@
                         }
                     }
 
-                    new Chart(dadosP1, {
+                    myChart2 = new Chart(dadosP1, {
                         type: 'bar',
                         data: {
                             labels: ['Quebrar o ciclo de vingança', 'Vingar o Joel', 'Entende as razões da Abby', 'Outro'],
@@ -377,7 +451,6 @@
                             }
                         }
                     });
-
                 })
             })
             .catch(function (resposta) {
@@ -392,6 +465,10 @@
             .then(function (resposta) {
                 resposta.json().then((dadosPergunta2) => {
                     const dadosP2 = document.getElementById('Pergunta2');
+
+                    if (myChart3) {
+                        myChart3.destroy();
+                    }
 
                     var qtdA = 0;
                     var qtdB = 0;
@@ -418,7 +495,7 @@
                         }
                     }
 
-                    new Chart(dadosP2, {
+                    myChart3 = new Chart(dadosP2, {
                         type: 'bar',
                         data: {
                             labels: ['Aliviado(a)', 'Triste', 'Com raiva', 'Conflituoso(a)'],
@@ -458,6 +535,10 @@
                 resposta.json().then((dadosPergunta3) => {
                     const dadosP3 = document.getElementById('Pergunta3');
 
+                    if (myChart4) {
+                        myChart4.destroy();
+                    }
+
                     var qtdA = 0;
                     var qtdB = 0;
                     var qtdC = 0;
@@ -483,7 +564,7 @@
                         }
                     }
 
-                    new Chart(dadosP3, {
+                    myChart4 = new Chart(dadosP3, {
                         type: 'bar',
                         data: {
                             labels: ['Traria paz', 'Mais conflitos', 'Menor peso', 'Novo trauma'],

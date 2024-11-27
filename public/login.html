@@ -85,8 +85,12 @@
                         console.log(JSON.stringify(json));
 
                         sessionStorage.EMAIL_USUARIO = json.email;
-                        sessionStorage.SENHA_USUARIO = json.senha;
                         sessionStorage.NOME_USUARIO = json.nickname;
+                        sessionStorage.ID_USUARIO = json.idUsuario;
+
+                        alert("Login realizado com sucesso! Redirecionando para a Dashboard...");
+
+                        window.location = "./dashboard.html";
                     });
                 } else {
                     console.log("Houve um erro ao tentar realizar o login!");
@@ -98,10 +102,6 @@
             }).catch(function (erro) {
                 console.log(erro);
             })
-
-            alert("Login realizado com sucesso! Redirecionando para a Dashboard...");
-
-            window.location = "./dashboard.html";
 
             return false;
         }
