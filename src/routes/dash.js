@@ -40,7 +40,7 @@ router.get("/capturarTotal", function (req, res) {
     dashController.capturarTotal(req, res);
 })
 
-
+// INSERTS
 // DASHBOARD
 router.post("/inserirAlternativa", function (req, res) {
     dashController.inserirAlternativa(req, res);
