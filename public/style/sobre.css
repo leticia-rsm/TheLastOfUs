@@ -1,0 +1,71 @@
+.bannerSobreProjeto {
+    height: calc(var(--tamanho-pagina) + 10vh);
+    background-image: url(../assets/img/bannerSobreProjeto.webp);
+    background-size: cover;
+    background-repeat: no-repeat;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.bannerSobreProjeto .container {
+    height: 80%;
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.sobreProjeto {
+    height: 90%;
+    width: 45%;
+    margin: 50px;
+    margin-top: 100px;
+}
+
+.tituloSobreProjeto {
+    height: 15%;
+    width: 100%;
+    font-size: 35px;
+    display: flex;
+    justify-content: center;
+}
+
+.descricaoProjeto {
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    text-align: justify;
+    backdrop-filter: blur(2px);
+}
+
+.pagina2 {
+    height: var(--tamanho-pagina);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina2 .container {
+    height: 90%;
+    width: 90%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.pagina2 .foto {
+    height: 100%;
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagina2 .foto img {
+    border: 10px solid #ccc;
+    border-radius: 5px;
+}
+
+.pagina2 .descricaoSobreMim {
+    height: 100%;
+    width: 45%;
+}

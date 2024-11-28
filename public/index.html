@@ -8,7 +8,6 @@
 
     <link rel="stylesheet" href="style/index.css">
     <link rel="icon" href="./assets/img/logo.webp">
-    <script src="../public/js/site.js"></script>
 </head>
 
 <body>
@@ -254,7 +253,7 @@
                 </div>
                 <div class="assista">
                     <h2>Assista a Série</h2>
-                    <span><a href="#"
+                    <span><a href="https://play.max.com/show/93ba22b1-833e-47ba-ae94-8ee7b9eefa9a"
                             onclick="link('HBO')">https://play.max.com/show/93ba22b1-833e-47ba-ae94-8ee7b9eefa9a</a></span>
                 </div>
                 <div class="email">
@@ -279,45 +278,24 @@
 </html>
 
 <script>
-    var contadorPS = 0;
-    var contadorHBO = 0;
-
     function link(click) {
-        var parametro = "";
-
-        if (click == "HBO") {
-            parametro = click
-            contadorHBO++;
-        } else if (click == "PS") {
-            parametro = click
-            contadorPS++;
-        }
-
         fetch(`/dash/inserirSite`, {
             method: "POST",
             headers: { "Content-type": "Application/json" },
             body: JSON.stringify({
                 // crie um atributo que recebe o valor recuperado aqui
                 // Agora vá para o arquivo routes/usuario.js
-                parametro: parametro
+                parametroServer: click
             })
         })
             .then(response => {
-                conosole.log("SITE AQUI")
-                if (!response.ok) {
-                    throw new Error('Erro na requisição')
+                if (response.ok) {
+
                 }
-                return response.json();
             })
-
-            .then(dadoSite => {
-                capturarSite()
-
+            .catch(function (resposta) {
+                console.log(`#ERRO ${resposta}`);
             })
-
-        setInterval(() => {
-            document.location.href = "https://play.max.com/show/93ba22b1-833e-47ba-ae94-8ee7b9eefa9a"
-        }, 3000)
     }
 
     function login() {

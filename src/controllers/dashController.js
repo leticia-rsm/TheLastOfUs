@@ -3,7 +3,6 @@ var dashModel = require("../models/dashModel");
 function capturarEscolhaFinal(req, res) {
     dashModel.capturarEscolhaFinal().then((resultado) => {
         res.status(200).json(resultado);
-        console.log('passou aqui no capturarEscolhaFinal')
     })
 }
 
@@ -12,21 +11,18 @@ function capturarPergunta1(req, res) {
     .then(
         (resultado) => {
         res.status(200).json(resultado);
-        console.log('passou aqui no capturarPergunta1 ' + resultado[1].qtd)
     })
 }
 
 function capturarPergunta2(req, res) {
     dashModel.capturarPergunta2().then((resultado) => {
         res.status(200).json(resultado);
-        console.log('passou aqui no capturarPergunta2 ' + resultado[1].qtd)
     })
 }
 
 function capturarPergunta3(req, res) {
     dashModel.capturarPergunta3().then((resultado) => {
         res.status(200).json(resultado);
-        console.log('passou aqui no capturarPergunta3 ' + resultado[1].qtd)
     })
 }
 
@@ -84,7 +80,7 @@ function inserirAlternativa(req, res) {
 
 function inserirSite(req, res) {
     // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
-    var nome = req.body.nomeServer;
+    var nome = req.body.parametroServer;
 
     // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
     dashModel.inserirSite(nome)

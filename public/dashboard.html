@@ -27,7 +27,7 @@
                     <a href="#section_grafico">Gráficos</a>
                 </li>
                 <li>
-                    <a href="./minigame.html">Minigame ▸</a>
+                    <a href="./sobre.html">Sobre o Projeto ▸</a>
                 </li>
             </ul>
             <div class="perfil">
@@ -85,8 +85,13 @@
     </div>
     <section id="section_grafico">
         <div class="dash">
-            <div class="kpi">
-                <span id="span_mensagem">Total de Votos: 0</span>
+            <div class="publico">
+                <h1>Resultado das Pesquisas:</h1>
+            </div>
+            <div class="kpi_alinhada">
+                <div class="kpi">
+                    <span id="span_mensagem">Total de Votos: 0</span>
+                </div>
             </div>
             <div class="interacao">
                 <div class="graficoAlinhado">
@@ -107,15 +112,23 @@
                 </div>
             </div>
             <div class="publico">
-                <h1>Público</h1>
+                <h1>Público:</h1>
             </div>
-            <div class="kpi">
-                <span id="span_ps">Quantidade de acessos no site oficial da Playstation: 0</span>
+            <div class="publico">
+                <h1>Quantidade de acessos nos sites</h1>
             </div>
-            <div class="kpi">
-                <span id="span_hbo">Quantidade de acessos no site oficial da HBO: 0</span>
+            <div class="kpi_alinhada" style="border-bottom: 2px solid #ccc;">
+                <div class="kpi">
+                    <span id="span_ps">Playstation: 0</span>
+                </div>
+                <div class="kpi">
+                    <span id="span_hbo">HBO: 0</span>
+                </div>
             </div>
             <div class="graficoAlinhado">
+                <div class="publico">
+                    <h1>Percentual de Faixa Etária</h1>
+                </div>
                 <div class="grafico2">
                     <canvas id="myChart2"></canvas>
                 </div>
@@ -123,6 +136,9 @@
             <div class="graficoAlinhado">
                 <div class="grafico2">
                     <canvas id="myChart3"></canvas>
+                </div>
+                <div class="publico">
+                    <h1>Dispositivos cadastrados</h1>
                 </div>
             </div>
         </div>
@@ -155,7 +171,6 @@
         dispositivos()
         capturarLink()
         capturarTotal()
-        link()
     }
 
     function escolha(voto) {
@@ -282,20 +297,19 @@
                     fkRespostaServer: resposta,
                 }),
             })
-                .then(response => {
-                    if (!response.ok) {
-                        throw new Error('Erro na requisição')
+                .then(function (resposta) {
+                    if (resposta.ok) {
+                        capturarTotal()
+                        dadosEscolhaFinal()
+                        dadosPergunta1()
+                        dadosPergunta2()
+                        dadosPergunta3()
+                        lista_resposta = [];
                     }
-                    return response.json();
-                })
-                .then(dadoAlternativa => {
-                    capturarTotal()
-                    dadosEscolhaFinal()
-                    dadosPergunta1()
-                    dadosPergunta2()
-                    dadosPergunta3()
 
-                    lista_resposta = [];
+                })
+                .catch(function (resposta) {
+                    console.log(`#ERRO ${resposta}`);
                 })
         }
     }
@@ -308,7 +322,7 @@
                 resposta.json().then((dadosTotal) => {
                     span_mensagem.innerHTML = `Total de votos: ${dadosTotal[0].qtd}`;
                 })
-                
+
             })
             .catch(function (resposta) {
                 console.log(`#ERRO ${resposta}`);
@@ -321,15 +335,13 @@
         })
             .then(function (resposta) {
                 resposta.json().then((dadosLink) => {
-                    console.log(dadosLink)
                     if (dadosLink.length == 0) {
-                        span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: 0`;
-                        span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: 0`;
+                        span_ps.innerHTML = `Playstation: 0`;
+                        span_hbo.innerHTML = `HBO: 0`;
                     } else {
-                        span_ps.innerHTML = `Quantidade de acessos no site oficial da Playstation: ${dadosLink[0].qtd}`;
-                        span_hbo.innerHTML = `Quantidade de acessos no site oficial da HBO: ${dadosLink[1].qtd}`;
+                        span_ps.innerHTML = `Playstation: ${dadosLink[0].qtd}`;
+                        span_hbo.innerHTML = `HBO: ${dadosLink[1].qtd}`;
                     }
-                    inserirSite()
                 })
             })
             .catch(function (resposta) {
@@ -354,7 +366,6 @@
                         myChart1.destroy();
                     }
 
-                    console.log(dadosDashEscolha)
                     if (dadosDashEscolha.length == 0) {
                         dados1.innerHTML = `Sem dados`;
                     } else {
@@ -394,16 +405,10 @@
             .then(function (resposta) {
                 resposta.json().then((dadosDashPergunta1) => {
                     var dadosP1 = document.getElementById('Pergunta1');
-                    console.log("esse", dadosDashPergunta1)
 
                     if (myChart2) {
                         myChart2.destroy();
                     }
-
-                    // var qtdA = 0;
-                    // var qtdB = 0;
-                    // var qtdC = 0;
-                    // var qtdD = 0;
 
                     lista_Pergunta1 = [];
 
@@ -412,25 +417,6 @@
 
                         lista_Pergunta1.push(dadoDaVez);
 
-                        /*
-                        if (dadoDaVez.r_alternativa == "A") {
-                            qtdA = dadoDaVez
-                        }
-
-                        if (dadoDaVez.r_alternativa == "B") {
-                            qtdA = dadoDaVez
-
-                        }
-
-                        if (dadoDaVez.r_alternativa == "C") {
-                            qtdA = dadoDaVez
-
-                        }
-
-                        if (dadoDaVez.r_alternativa == "D") {
-                            qtdA = dadoDaVez
-
-                        }*/
                     }
 
                     myChart2 = new Chart(dadosP1, {
@@ -476,33 +462,12 @@
                         myChart3.destroy();
                     }
 
-                    // var qtdA = 0;
-                    // var qtdB = 0;
-                    // var qtdC = 0;
-                    // var qtdD = 0;
-
                     lista_Pergunta2 = [];
 
                     for (var i = 0; i < dadosPergunta2.length; i++) {
                         var element = dadosPergunta2[i].qtd;
 
                         lista_Pergunta2.push(element)
-
-                        // if (element.r_alternativa == "A") {
-                        //     qtdA = element;
-                        // }
-
-                        // if (element.r_alternativa == "B") {
-                        //     qtdB = element;
-                        // }
-
-                        // if (element.r_alternativa == "C") {
-                        //     qtdC = element;
-                        // }
-
-                        // if (element.r_alternativa == "D") {
-                        //     qtdD = element;
-                        // }
                     }
 
                     myChart3 = new Chart(dadosP2, {
@@ -549,33 +514,12 @@
                         myChart4.destroy();
                     }
 
-                    // var qtdA = 0;
-                    // var qtdB = 0;
-                    // var qtdC = 0;
-                    // var qtdD = 0;
-
                     lista_Pergunta3 = [];
 
                     for (var i = 0; i < dadosPergunta3.length; i++) {
                         var element = dadosPergunta3[i].qtd;
 
                         lista_Pergunta3.push(element)
-
-                        // if (element.r_alternativa == "A") {
-                        //     qtdA = element;
-                        // }
-
-                        // if (element.r_alternativa == "B") {
-                        //     qtdB = element;
-                        // }
-
-                        // if (element.r_alternativa == "C") {
-                        //     qtdC = element;
-                        // }
-
-                        // if (element.r_alternativa == "D") {
-                        //     qtdD = element;
-                        // }
                     }
 
                     myChart4 = new Chart(dadosP3, {
@@ -617,7 +561,6 @@
             .then(function (resposta) {
                 resposta.json().then((dadosIdade) => {
                     const dados2 = document.getElementById('myChart2');
-                    console.log(resposta)
 
                     var qtd18_21 = 0;
                     var qtd22_25 = 0;
@@ -643,11 +586,6 @@
                             qtd30++;
                         }
                     }
-
-                    // console.log(`Quantidade entre 18-21 anos: ${qtd18_21}`);
-                    // console.log(`Quantidade entre 22-25 anos: ${qtd22_25}`);
-                    // console.log(`Quantidade entre 26-29 anos: ${qtd26_29}`);
-                    // console.log(`Quantidade com 30+ anos: ${qtd30}`);
 
                     new Chart(dados2, {
                         type: 'pie',
